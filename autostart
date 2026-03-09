@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+killall waybar eww mpvpaper
+
+[[ -f /usr/lib/xdg-desktop-portal ]] && /usr/lib/xdg-desktop-portal -r &!
+[[ -f /usr/lib/xdg-desktop-portal-hyprland ]] && /usr/lib/xdg-desktop-portal-hyprland  &! # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Hyprland-desktop-portal/
+
+# wallpaper-handler ~/Pictures/Wallpaper/wallhaven-5yypg8.jpg &! # Call wallpaper-handler to set wallpaper
+
+autoload start-idlemanager battery-saver # Load zsh functions to call later...
+# start-idlemanager # Start idlemanager
+battery-saver &! # Start battery-saver daemon
+# fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
+
+(( $+commands[mpd] )) && mpd &! # Start music player daemon
+(( $+commands[mpd-mpris] )) && mpd-mpris &!
+
+hyprpm enable hyprwinwrap # Enable hyprland plugin
