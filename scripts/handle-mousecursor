@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for cmd in hyprctl jq cut seq; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "$0: missing dependency: $cmd" >&2
+        exit 1
+    fi
+done
+
+cursor_position="$(hyprctl cursorpos)"
+
+if [[ "$(printf '%s\n' "$cursor_position" | jq -Rr 'split(",") | length')" -ne 2 ]]; then
+    echo "$0: unexpected cursor position format: $cursor_position" >&2
+    exit 1
+fi
+
+cursor_position_x="$(printf '%s\n' "$cursor_position" | cut -d ',' -f 1)"
+cursor_position_y="$(printf '%s\n' "$cursor_position" | cut -d ',' -f 2)"
+
+speed=10
+
+move() {
+    local delta_x="$1"
+    local delta_y="$2"
+    local iteration
+
+    for iteration in $(seq 1 "$speed"); do
+        cursor_position_x=$((cursor_position_x + delta_x))
+        cursor_position_y=$((cursor_position_y + delta_y))
+        hyprctl dispatch movecursor "$cursor_position_x $cursor_position_y" >/dev/null
+    done
+}
+
+while getopts "udlr" option; do
+    case "$option" in
+        u) move 0 -1 ;;
+        d) move 0 1 ;;
+        l) move -1 0 ;;
+        r) move 1 0 ;;
+        \?)
+            echo "$0: only takes -u, -d, -l, or -r" >&2
+            exit 1
+            ;;
+    esac
+done
