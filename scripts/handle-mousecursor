@@ -8,6 +8,9 @@ for cmd in hyprctl jq cut seq; do
     fi
 done
 
+# Keep the cursor visible while using keyboard-driven cursor movement.
+hyprctl -q keyword cursor:hide_on_key_press false >/dev/null
+
 cursor_position="$(hyprctl cursorpos)"
 
 if [[ "$(printf '%s\n' "$cursor_position" | jq -Rr 'split(",") | length')" -ne 2 ]]; then
