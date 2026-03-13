@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Focus a matching app window if present; otherwise launch a fallback binary.
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 {browser|editor|terminal}" >&2
+    exit 2
+fi
+
+if ! command -v hyprctl >/dev/null 2>&1; then
+    echo "hyprctl not found" >&2
+    exit 1
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    echo "jq not found" >&2
+    exit 1
+fi
+
+kind="$1"
+class_regex=""
+launch_cmds=()
+
+case "$kind" in
+    browser)
+        class_regex='^(firefox|chromium|Brave-browser)$'
+        launch_cmds=(firefox chromium brave brave-browser)
+        ;;
+    editor)
+        class_regex='^(code|Code|codium)$'
+        launch_cmds=(code codium)
+        ;;
+    terminal)
+        class_regex='^(foot|kitty|Alacritty)$'
+        launch_cmds=(foot kitty alacritty)
+        ;;
+    *)
+        echo "Unknown target: $kind" >&2
+        exit 2
+        ;;
+esac
+
+if hyprctl clients -j | jq -e --arg re "$class_regex" '.[] | select((.class // "") | test($re; "i"))' >/dev/null; then
+    hyprctl dispatch focuswindow "class:$class_regex" >/dev/null
+    exit 0
+fi
+
+for cmd in "${launch_cmds[@]}"; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+        exec "$cmd"
+    fi
+done
+
+# Editor fallback for terminal-based setups.
+if [[ "$kind" == "editor" ]] && command -v foot >/dev/null 2>&1 && command -v nvim >/dev/null 2>&1; then
+    exec foot -e nvim
+fi
+
+echo "No launcher command found for $kind" >&2
+exit 1
