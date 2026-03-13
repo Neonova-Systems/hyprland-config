@@ -23,7 +23,7 @@ cursor_position_y="$(printf '%s\n' "$cursor_position" | cut -d ',' -f 2)"
 
 state_file="/tmp/hypr-handle-mousecursor-state.json"
 repeat_window_ms=300
-base_pixels=10
+base_pixels=13
 pixels_step=23
 max_pixels=240
 
