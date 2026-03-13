@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-for cmd in hyprctl jq cut seq; do
+for cmd in hyprctl jq cut seq date; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
         echo "$0: missing dependency: $cmd" >&2
         exit 1
@@ -21,29 +21,89 @@ fi
 cursor_position_x="$(printf '%s\n' "$cursor_position" | cut -d ',' -f 1)"
 cursor_position_y="$(printf '%s\n' "$cursor_position" | cut -d ',' -f 2)"
 
-speed=10
+state_file="/tmp/hypr-handle-mousecursor-state.json"
+repeat_window_ms=300
+base_pixels=10
+pixels_step=23
+max_pixels=240
 
 move() {
     local delta_x="$1"
     local delta_y="$2"
+    local pixels="$3"
     local iteration
 
-    for iteration in $(seq 1 "$speed"); do
+    for iteration in $(seq 1 "$pixels"); do
         cursor_position_x=$((cursor_position_x + delta_x))
         cursor_position_y=$((cursor_position_y + delta_y))
         hyprctl dispatch movecursor "$cursor_position_x $cursor_position_y" >/dev/null
     done
 }
 
+direction=""
+delta_x=0
+delta_y=0
+
 while getopts "udlr" option; do
     case "$option" in
-        u) move 0 -1 ;;
-        d) move 0 1 ;;
-        l) move -1 0 ;;
-        r) move 1 0 ;;
+        u)
+            direction="u"
+            delta_x=0
+            delta_y=-1
+            ;;
+        d)
+            direction="d"
+            delta_x=0
+            delta_y=1
+            ;;
+        l)
+            direction="l"
+            delta_x=-1
+            delta_y=0
+            ;;
+        r)
+            direction="r"
+            delta_x=1
+            delta_y=0
+            ;;
         \?)
             echo "$0: only takes -u, -d, -l, or -r" >&2
             exit 1
             ;;
     esac
 done
+
+if [[ -z "$direction" ]]; then
+    echo "$0: only takes -u, -d, -l, or -r" >&2
+    exit 1
+fi
+
+now_ms="$(date +%s%3N)"
+last_dir=""
+last_ts=0
+last_streak=0
+
+if [[ -f "$state_file" ]]; then
+    last_dir="$(jq -r '.dir // ""' "$state_file" 2>/dev/null || true)"
+    last_ts="$(jq -r '.ts // 0' "$state_file" 2>/dev/null || echo 0)"
+    last_streak="$(jq -r '.streak // 0' "$state_file" 2>/dev/null || echo 0)"
+fi
+
+if [[ "$direction" == "$last_dir" ]] && (( now_ms - last_ts <= repeat_window_ms )); then
+    streak=$((last_streak + 1))
+else
+    streak=1
+fi
+
+# Acceleration profile:
+# 1st/2nd repeat = 10px, 3rd/4th/5th = 33px, then +23px every 3 repeats.
+boost_level=$((streak / 3))
+pixels=$((base_pixels + boost_level * pixels_step))
+
+if (( pixels > max_pixels )); then
+    pixels=$max_pixels
+fi
+
+printf '{"dir":"%s","ts":%s,"streak":%s}\n' "$direction" "$now_ms" "$streak" > "$state_file"
+
+move "$delta_x" "$delta_y" "$pixels"
