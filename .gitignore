@@ -2,3 +2,4 @@
 reserved-space.conf
 ./workspaces.conf
 ./monitors.conf
+__pycache__
