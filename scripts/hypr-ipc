@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-import json
 import os
 import shlex
 import socket
@@ -8,10 +6,10 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+# https://wiki.hypr.land/IPC/
 
-
-WORKSPACE_EVENTS = {"workspacev2"}
 AGS_INSTANCE = "workspace-info-osd"
+WORKSPACE_EVENT_DEBOUNCE_SECONDS = 0.12
 AGS_QUIT_COMMAND = [
     "ags",
     "quit",
@@ -32,134 +30,52 @@ def fail(message: str, exit_code: int = 1) -> "None":
     raise SystemExit(exit_code)
 
 
-def resolve_runtime_dir() -> Path:
+def main() -> int:
     runtime_dir = os.environ.get("XDG_RUNTIME_DIR")
     if not runtime_dir:
         fail("XDG_RUNTIME_DIR is not set")
 
-    path = Path(runtime_dir)
-    if not path.exists():
-        fail(f"Runtime directory does not exist: {path}")
+    runtime_path = Path(runtime_dir)
+    if not runtime_path.exists():
+        fail(f"Runtime directory does not exist: {runtime_path}")
 
-    return path
-
-
-def resolve_instance_dir(runtime_dir: Path) -> Path:
-    hypr_root = runtime_dir / "hypr"
+    hypr_root = runtime_path / "hypr"
     if not hypr_root.is_dir():
         fail(f"Hyprland runtime directory not found: {hypr_root}")
 
+    instance_dir: Path | None = None
     instance = os.environ.get("HYPRLAND_INSTANCE_SIGNATURE")
     if instance:
-        instance_dir = hypr_root / instance
-        if not instance_dir.is_dir():
-            fail(f"Hyprland instance not found: {instance_dir}")
-        return instance_dir
+        candidate = hypr_root / instance
+        if candidate.is_dir():
+            instance_dir = candidate
 
-    candidates = sorted(path for path in hypr_root.iterdir() if path.is_dir())
-    if not candidates:
-        fail(f"No Hyprland instances found under {hypr_root}")
-    if len(candidates) > 1:
-        joined = ", ".join(path.name for path in candidates)
-        fail(
-            "Multiple Hyprland instances found. Set HYPRLAND_INSTANCE_SIGNATURE. "
-            f"Available: {joined}"
-        )
+    if instance_dir is None:
+        candidates = sorted(path for path in hypr_root.iterdir() if path.is_dir())
+        live_candidates = [
+            path
+            for path in candidates
+            if (path / ".socket.sock").exists() and (path / ".socket2.sock").exists()
+        ]
 
-    return candidates[0]
+        if len(live_candidates) == 1:
+            instance_dir = live_candidates[0]
+        elif len(live_candidates) > 1:
+            instance_dir = max(live_candidates, key=lambda path: path.stat().st_mtime)
+        elif len(candidates) == 1:
+            instance_dir = candidates[0]
+        else:
+            joined = ", ".join(path.name for path in candidates)
+            fail(
+                "Could not determine the active Hyprland runtime under "
+                f"{hypr_root}. Found {len(candidates)} directories: {joined}"
+            )
 
+    sock_path = instance_dir / ".socket2.sock"
+    if not sock_path.exists():
+        fail(f"Socket not found: {sock_path}")
 
-def event_socket_path(instance_dir: Path) -> Path:
-    return instance_dir / ".socket2.sock"
-
-
-def request_socket_path(instance_dir: Path) -> Path:
-    return instance_dir / ".socket.sock"
-
-
-def ensure_socket(path: Path) -> None:
-    if not path.exists():
-        fail(f"Socket not found: {path}")
-
-
-def parse_event_line(line: str) -> tuple[str, str]:
-    if ">>" not in line:
-        return line, ""
-    event_name, data = line.split(">>", 1)
-    return event_name, data
-
-
-def hypr_request(sock_path: Path, payload: str, timeout: float = 1.0) -> str:
-    ensure_socket(sock_path)
-
-    chunks: list[bytes] = []
-    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
-        client.settimeout(timeout)
-        client.connect(str(sock_path))
-        client.sendall(payload.encode("utf-8"))
-        client.shutdown(socket.SHUT_WR)
-
-        while True:
-            chunk = client.recv(8192)
-            if not chunk:
-                break
-            chunks.append(chunk)
-
-    return b"".join(chunks).decode("utf-8", errors="replace")
-
-
-def parse_workspacev2_data(data: str) -> tuple[int | None, str | None]:
-    workspace_id, _, workspace_name = data.partition(",")
-
-    try:
-        parsed_id = int(workspace_id)
-    except ValueError:
-        parsed_id = None
-
-    parsed_name = workspace_name or None
-    return parsed_id, parsed_name
-
-
-def get_active_workspace(instance_dir: Path, target_id: int | None) -> dict[str, object]:
-    request_path = request_socket_path(instance_dir)
-
-    for attempt in range(5):
-        response = hypr_request(request_path, "j/activeworkspace")
-        workspace = json.loads(response)
-
-        if target_id is None or workspace.get("id") == target_id:
-            return workspace
-
-        time.sleep(0.03 * (attempt + 1))
-
-    return workspace
-
-
-def run_ags(workspace: dict[str, object]) -> None:
-    env = os.environ.copy()
-    env["HYPR_WORKSPACE_ID"] = str(workspace.get("id", ""))
-    env["HYPR_WORKSPACE_NAME"] = str(workspace.get("name", ""))
-    env["HYPR_WORKSPACE_WINDOWS"] = str(workspace.get("windows", "0"))
-    env["HYPR_WORKSPACE_MONITOR"] = str(workspace.get("monitor", ""))
-    env["HYPR_WORKSPACE_HAS_FULLSCREEN"] = "1" if workspace.get("hasfullscreen") else "0"
-
-    try:
-        subprocess.run(
-            AGS_QUIT_COMMAND,
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        subprocess.run(AGS_COMMAND, check=False, env=env)
-    except FileNotFoundError:
-        fail(f"Command not found: {shlex.join(AGS_COMMAND)}")
-
-
-def main() -> int:
-    runtime_dir = resolve_runtime_dir()
-    instance_dir = resolve_instance_dir(runtime_dir)
-    sock_path = event_socket_path(instance_dir)
-    ensure_socket(sock_path)
+    last_workspace_event = 0.0
 
     try:
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
@@ -171,15 +87,28 @@ def main() -> int:
                 if line == "":
                     return 0
 
-                event_name, data = parse_event_line(line.rstrip("\n"))
-                if event_name in WORKSPACE_EVENTS:
-                    workspace_id, workspace_name = parse_workspacev2_data(data)
-                    workspace = get_active_workspace(instance_dir, workspace_id)
+                raw_line = line.rstrip("\n")
+                event_name = raw_line.split(">>", 1)[0]
+                if event_name == "workspace":
+                    now = time.monotonic()
+                    if now - last_workspace_event < WORKSPACE_EVENT_DEBOUNCE_SECONDS:
+                        continue
 
-                    if workspace_name and not workspace.get("name"):
-                        workspace["name"] = workspace_name
-
-                    run_ags(workspace)
+                    last_workspace_event = now
+                    try:
+                        subprocess.run(
+                            AGS_QUIT_COMMAND,
+                            check=False,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                        )
+                        # Launch AGS without waiting so the IPC event loop stays responsive.
+                        subprocess.Popen(
+                            AGS_COMMAND, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            start_new_session=True,
+                            close_fds=True,
+                        )
+                    except FileNotFoundError:
+                        fail(f"Command not found: {shlex.join(AGS_COMMAND)}")
     except KeyboardInterrupt:
         return 130
 
