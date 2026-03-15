@@ -76,6 +76,7 @@ def main() -> int:
         fail(f"Socket not found: {sock_path}")
 
     last_workspace_event = 0.0
+    current_workspace_id: str | None = None
 
     try:
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
@@ -90,6 +91,20 @@ def main() -> int:
                 raw_line = line.rstrip("\n")
                 event_name = raw_line.split(">>", 1)[0]
                 if event_name == "workspace":
+                    payload = raw_line.split(">>", 1)[1] if ">>" in raw_line else ""
+                    workspace_id = payload.strip()
+                    if "," in workspace_id:
+                        workspace_id = workspace_id.split(",", 1)[0].strip()
+
+                    if workspace_id:
+                        previous_workspace_id = current_workspace_id
+                        current_workspace_id = workspace_id
+                        os.environ["HYPRLAND_CURRENT_WORKSPACE_ID"] = current_workspace_id
+                        if previous_workspace_id is None:
+                            os.environ.pop("HYPRLAND_PREVIOUS_WORKSPACE_ID", None)
+                        else:
+                            os.environ["HYPRLAND_PREVIOUS_WORKSPACE_ID"] = previous_workspace_id
+
                     now = time.monotonic()
                     if now - last_workspace_event < WORKSPACE_EVENT_DEBOUNCE_SECONDS:
                         continue
@@ -103,7 +118,11 @@ def main() -> int:
                         )
                         # Launch AGS without waiting so the IPC event loop stays responsive.
                         subprocess.Popen(
-                            AGS_COMMAND, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            AGS_COMMAND,
+                            stdin=subprocess.DEVNULL,
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                            env=os.environ.copy(),
                             start_new_session=True,
                             close_fds=True,
                         )
