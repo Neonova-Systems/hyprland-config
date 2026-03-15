@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Avoid duplicate overlays by shutting down any existing instance first.
+ags quit --instance "resizing-osd" >/dev/null 2>&1 || true
+exec ags run "${HOME}/.config/ags/window/onscreen-display/resizing-osd.tsx" --gtk 4

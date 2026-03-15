@@ -39,11 +39,11 @@ Top-level sections:
 
 Submaps:
 
-- `keybinds/mouse-mode.conf`
-- `keybinds/context-menu-spawn-widget.conf`
-- `keybinds/manage-window.conf`
-- `keybinds/resize.conf`
-- `keybinds/power.conf`
+- `keybinds/submap/mouse-mode.conf`
+- `keybinds/submap/context-menu-spawn-widget.conf`
+- `keybinds/submap/manage-window.conf`
+- `keybinds/submap/resize.conf`
+- `keybinds/submap/power.conf`
 
 ## Helper Scripts
 
