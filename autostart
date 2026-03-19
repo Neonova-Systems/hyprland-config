@@ -4,6 +4,8 @@
 # [[ -f /usr/lib/xdg-desktop-portal ]] && /usr/lib/xdg-desktop-portal -r &!
 # [[ -f /usr/lib/xdg-desktop-portal-hyprland ]] && /usr/lib/xdg-desktop-portal-hyprland  &! # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Hyprland-desktop-portal/
 
+[[ -f ~/.config/hypr/.secret/hidden.conf ]] || { mkdir -p ~/.config/hypr/.secret && touch ~/.config/hypr/.secret/hidden.conf; }
+
 autoload start-idlemanager battery-saver # Load zsh functions to call later...
 # start-idlemanager # Start idlemanager
 battery-saver &! # Start battery-saver daemon
