@@ -1,17 +1,36 @@
 -- https://wiki.hypr.land/Configuring/Start/#require
+if not pcall(require, "./.secret/hidden") then
+    print("No hidden configuration file found, skipping.")
+else 
+    require("./.secret/hidden")
+end
 require("env")
 require("general")
 require("decoration")
+require("animation")
 
+-- https://wiki.hypr.land/Configuring/Basics/Autostart/
+-- hl.exec_cmd() will spawn an asynchronous process, so there is no need for & disown at the end.
+-- In the same vein, you can spawn processes on exit by listening to hyprland.shutdown.
+-- See more about hl.on over at https://wiki.hypr.land/Configuring/Advanced-and-Cool/Expanding-functionality
 hl.on("hyprland.start", function()
     hl.exec_cmd([=[sh -lc '[[ -f ~/.config/hypr/.secret/hidden.conf ]] || { mkdir -p ~/.config/hypr/.secret && touch ~/.config/hypr/.secret/hidden.conf; }']=])
+    hl.exec_cmd("awww-daemon") -- Start awww-daemon for animated wallpapers
+    hl.exec_cmd("vicinae server") -- Start vicinae server for animated wallpapers
+
+    hl.exec_cmd("nm-applet --indicator") -- Start network-manager applet
+    hl.exec_cmd("udiskie --appindicator") -- Start automounter for removable media, like usb, thumb drives, mobile phones, digital cameras, etc.
+    hl.exec_cmd("gnome-keyring-daemon -rd") -- Start gnome-keyring
+    hl.exec_cmd("foot --server") -- Start foot server, this will reduced startup time and reduced memory footprint
+    hl.exec_cmd("ags run &> ~/.cache/ags/logs") -- Start ags for on screen display and other utilities
+    hl.exec_cmd("~/.config/ags/scripts/on-workspace-ipc") -- Start on workspace ipc script, this will send ipc events to ags for workspace changes, so you can have a workspace indicator in your bar.
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP") -- https://wiki.hyprland.org/FAQ/#some-of-my-apps-take-a-really-long-time-to-open
+    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1") -- Enable polkit-gnome for run root-application with normal user like gparted.
+    hl.exec_cmd("wl-paste --watch clipman store --no-persist") -- Start clipboard manager wayland
+    hl.exec_cmd("mpd") -- Start music player daemon, if you use one. Remove if you don't use mpd or replace with your preferred music player daemon. You can also start a separate mpris daemon if your music player doesn't support mpris out of the box, such as mpd-mpris.
 end)
 
 hl.config({
-    animations = {
-        enabled = true,
-        workspace_wraparound = false,
-    },
 
     input = {
         kb_model = "",
@@ -249,30 +268,6 @@ hl.config({
     },
 })
 
-hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
-hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
-hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
-hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
-hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
-hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
-
-hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
-hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windows", enabled = true, speed = 4.79, spring = "easy" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, spring = "easy", style = "popin 87%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
-hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
-hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
 hl.monitor({ output = "eDP-1", mode = "1920x1080@60.01", position = "0x0", scale = 1.0 })
 hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60.0", position = "1920x0", scale = 1.5, mirror = "eDP-1" })
