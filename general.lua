@@ -22,7 +22,7 @@ hl.config({ -- You are allowed multiple hl.config() invocations, each one will u
         resize_corner = 0,
         modal_parent_blocking = true,
         locale = "",
-        snap = {
+        snap = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
             enabled = true,
             window_gap = 20,
             monitor_gap = 20,

@@ -1,57 +1,16 @@
 -- https://wiki.hypr.land/Configuring/Start/#require
 require("env")
 require("general")
+require("decoration")
 
 hl.on("hyprland.start", function()
     hl.exec_cmd([=[sh -lc '[[ -f ~/.config/hypr/.secret/hidden.conf ]] || { mkdir -p ~/.config/hypr/.secret && touch ~/.config/hypr/.secret/hidden.conf; }']=])
 end)
 
 hl.config({
-    decoration = {
-        rounding = 28,
-        rounding_power = 1.0,
-        active_opacity = 1.0,
-        inactive_opacity = 1.0,
-        fullscreen_opacity = 1.0,
-        dim_modal = true,
-        dim_inactive = false,
-        dim_strength = 0.5,
-        dim_special = 0.7,
-        dim_around = 0.4,
-        screen_shader = "",
-        border_part_of_window = true,
-        blur = {
-            enabled = true,
-            size = 3,
-            passes = 4,
-            ignore_opacity = true,
-            new_optimizations = true,
-            xray = false,
-            noise = 0.0117,
-            contrast = 0.8916,
-            brightness = 0.8172,
-            vibrancy = 0.1696,
-            vibrancy_darkness = 0.0,
-            special = false,
-            popups = false,
-            popups_ignorealpha = 0.2,
-            input_methods = false,
-            input_methods_ignorealpha = 0.2,
-        },
-        shadow = {
-            enabled = true,
-            range = 20,
-            render_power = 3,
-            sharp = false,
-            color = "rgba(00000040)",
-            color_inactive = "rgba(00000040)",
-            offset = { 0, 0 },
-            scale = 1.0,
-        },
-    },
-
     animations = {
         enabled = true,
+        workspace_wraparound = false,
     },
 
     input = {
