@@ -1,0 +1,11 @@
+// https://wiki.hypr.land/Configuring/Start/#autocompletions
+{ 
+  "workspace": {
+    "library": [
+      "/usr/share/hypr/stubs"
+    ]
+  },
+    "diagnostics.globals": [
+        "hl"
+    ]
+}
