@@ -22,6 +22,13 @@ hl.window_rule({ match = { tag = "file-manager" }, workspace = "special"})
 -- Special Workspace
 hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
 
+
+-- File managers Rules
+hl.window_rule({ match = { tag = "file-manager"}, float = true, animation = "slide down", center = true})
+
+
+
+
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize", })
 hl.window_rule({ name = "fix-xwayland-drags", match = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false, }, no_focus = true, })
 
@@ -41,10 +48,7 @@ hl.window_rule({ name = "window-rule-immediate", match = { class = "^(cs2)$" }, 
 hl.window_rule({ name = "window-rule-pin-pip", match = { title = "^(Picture-in-Picture)$" }, pin = true, })
 hl.window_rule({ name = "window-rule-float-pip", match = { title = "^(Picture-in-Picture|.*Sharing Indicator.*)$" }, float = true, })
 
-hl.window_rule({ name = "window-rule-float-popups", match = { class = "^(pavucontrol|nemo|pcmanfm|thunar|file-roller|gucharmap)$" }, float = true, })
-hl.window_rule({ name = "window-rule-slide-right", match = { class = "^(nemo|pcmanfm|thunar|file-roller)$" }, animation = "slide right", })
 hl.window_rule({ name = "window-rule-slide-up", match = { class = "^(firefox|librewolf|google-chrome|qutebrowser)$" }, animation = "slide up", })
-hl.window_rule({ name = "window-rule-move-popups", match = { class = "^(nemo|pcmanfm|thunar|file-roller|gucharmap)$" }, move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))", })
 
 hl.window_rule({ name = "window-rule-no-focus-ibus", match = { class = "^(Ibus-ui-gtk3)$" }, no_focus = true, })
 hl.window_rule({ name = "window-rule-idle-inhibit", match = { class = "^(mpv)$" }, idle_inhibit = "focus", })
