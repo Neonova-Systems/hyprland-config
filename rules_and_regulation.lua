@@ -1,6 +1,18 @@
 -- https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
+-- Tags
+hl.window_rule({ match = { class = "^(firefox|librewolf|google-chrome|qutebrowser)$" }, tag = "+browser"})
+hl.window_rule({ match = { class = "^(code|code-oss|VSCodium|jetbrains-.*|nvim-qt|emacs)$" }, tag = "+code"})
+hl.window_rule({ match = { class = "^(foot|kitty|Alacritty|wezterm)$" }, tag = "+terminal"})
+
+
+-- Workspace Routing
+hl.window_rule({ match = { tag = "browser" }, workspace = "1"})
+hl.window_rule({ match = { tag = "code" }, workspace = "2"})
+hl.window_rule({ match = { tag = "terminal" }, workspace = "3"})
+
+
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize", })
 hl.window_rule({ name = "fix-xwayland-drags", match = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false, }, no_focus = true, })
 
@@ -91,3 +103,7 @@ hl.window_rule({
 
 hl.workspace_rule({ workspace = "n[s:window] w[tv1]", gaps_out = { top = 0, right = 0, bottom = 0, left = 0 }, gaps_in = { top = 0, right = 0, bottom = 0, left = 0 } })
 hl.workspace_rule({ workspace = "n[s:window] f[1]", gaps_out = { top = 0, right = 0, bottom = 0, left = 0 }, gaps_in = { top = 0, right = 0, bottom = 0, left = 0 } })
+
+
+-- Per-workspace layouts
+hl.workspace_rule({ workspace = "1", layout = "scrolling" })
