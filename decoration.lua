@@ -40,13 +40,13 @@ hl.config({
             offset = { 0, 0 },
             scale = 1.0,
         },
-        glow { -- https://wiki.hypr.land/Configuring/Basics/Variables/#glow
-            enabled = false,
-            size = 20,
-            render_power = 3,1,
-            color = "rgba(00000040)",
-            color_inactive = "",
-        },
+        -- glow { -- https://wiki.hypr.land/Configuring/Basics/Variables/#glow
+        --     enabled = false,
+        --     size = 20,
+        --     render_power = 3,1,
+        --     color = "rgba(00000040)",
+        --     color_inactive = "",
+        -- },
         motion_blur = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#motion-blur
             enabled = false,
             samples = 8,

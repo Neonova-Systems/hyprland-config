@@ -328,7 +328,7 @@ hl.bind("SUPER + mouse:273", hl.dsp.exec_cmd("~/.config/hypr/scripts/spawn-resiz
 hl.bind("SUPER + CONTROL + mouse:273", hl.dsp.exec_cmd("ags run ~/.config/ags/window/context-menu/context-menu.tsx --gtk 4"))
 hl.bind("SUPER + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
 hl.bind("SUPER + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
-hl.bind("SUPERSHIFT + mouse:274", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
+hl.bind("SUPER + SHIFT + mouse:274", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
 
 -- Core window and layout controls
 hl.bind("SUPER + SHIFT + E", hl.dsp.exit())
