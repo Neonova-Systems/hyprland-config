@@ -1,26 +1,23 @@
 -- https://wiki.hypr.land/Configuring/Start/#require
-if not pcall(require, "./.secret/hidden") then
-    print("No hidden configuration file found, skipping.")
-else 
-    require("./.secret/hidden")
-end
-if not pcall(require, "monitors") then
-    print("No monitors configuration file found, skipping.")
-else 
-    require("monitors")
-end
 require("env")
 require("general")
 require("decoration")
 require("animation")
-require("rules_and_regulation")
+
+if not pcall(require, "monitors") then -- nwg-display generated config
+else require("monitors") end
+
+if not pcall(require, "workspaces") then -- nwg-display generated config
+else require("workspaces") end
+
+if not pcall(require, "./.secret/hidden") then
+else require("./.secret/hidden") end
 
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd() will spawn an asynchronous process, so there is no need for & disown at the end.
 -- In the same vein, you can spawn processes on exit by listening to hyprland.shutdown.
 -- See more about hl.on over at https://wiki.hypr.land/Configuring/Advanced-and-Cool/Expanding-functionality
 hl.on("hyprland.start", function()
-    hl.exec_cmd([=[sh -lc '[[ -f ~/.config/hypr/.secret/hidden.conf ]] || { mkdir -p ~/.config/hypr/.secret && touch ~/.config/hypr/.secret/hidden.conf; }']=])
     hl.exec_cmd("awww-daemon") -- Start awww-daemon for animated wallpapers
     hl.exec_cmd("vicinae server") -- Start vicinae server for animated wallpapers
 
@@ -37,7 +34,6 @@ hl.on("hyprland.start", function()
 end)
 
 hl.config({
-
     input = {
         kb_model = "",
         kb_layout = "us",
@@ -274,25 +270,11 @@ hl.config({
     },
 })
 
-
-hl.monitor({ output = "eDP-1", mode = "1920x1080@60.01", position = "0x0", scale = 1.0 })
-hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60.0", position = "1920x0", scale = 1.5, mirror = "eDP-1" })
-
-hl.workspace_rule({ workspace = "2", monitor = "eDP-1", default = true })
-hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1", default = true })
-hl.workspace_rule({ workspace = "3", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "4", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "5", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "6", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "7", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "8", monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "9", monitor = "eDP-1" })
-
 hl.device({
     name = "royuan-akko-multi-modes-keyboard-b",
     repeat_rate = 50,
     repeat_delay = 500,
-    middle_button_emulation = 0,
+    -- middle_button_emulation = 0,
 })
 
 hl.device({
@@ -463,3 +445,5 @@ hl.gesture({
         hl.dispatch(hl.dsp.exec_cmd("kitty"))
     end,
 })
+
+require("rules_and_regulation")

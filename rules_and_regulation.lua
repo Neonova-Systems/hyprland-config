@@ -42,7 +42,6 @@ hl.window_rule({ name = "window-rule-sync-fullscreen", match = { class = "^(game
 hl.window_rule({ name = "window-rule-no-shortcuts-inhibit", match = { class = "^(steam|gamescope)$" }, no_shortcuts_inhibit = true, })
 hl.window_rule({ name = "window-rule-render-unfocused", match = { class = "^(obs|com.obsproject.Studio)$" }, render_unfocused = true, })
 
-
 hl.window_rule({ name = "window-rule-content-photo", match = { class = "^(imv|nsxiv|feh)$" }, content = "photo", })
 hl.window_rule({ name = "window-rule-content-video", match = { class = "^(mpv|vlc|celluloid)$" }, content = "video", })
 hl.window_rule({ name = "window-rule-content-game", match = { class = "^(gamescope|steam_app_.*)$" }, content = "game", })
