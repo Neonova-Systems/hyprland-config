@@ -13,6 +13,9 @@ else require("workspaces") end
 if not pcall(require, "./.secret/hidden") then
 else require("./.secret/hidden") end
 
+if not pcall(require, "reserved-space") then -- connect StellarisCoreUI
+else require("reserved-space") end
+
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd() will spawn an asynchronous process, so there is no need for & disown at the end.
 -- In the same vein, you can spawn processes on exit by listening to hyprland.shutdown.
