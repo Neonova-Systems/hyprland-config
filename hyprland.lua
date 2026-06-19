@@ -363,8 +363,8 @@ hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({ direction = "left" }))
 hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({ direction = "right" }))
 hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({ direction = "up" }))
 hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({ direction = "down" }))
-hl.bind("SUPER + grave", hl.dsp.focus({ direction = "last" }))
-hl.bind("SUPER + U", hl.dsp.focus({ direction = "urgent_or_last" }))
+hl.bind("SUPER + grave", hl.dsp.focus({ last = true }))
+hl.bind("SUPER + U", hl.dsp.focus({ urgent_or_last = true }))
 
 -- Workspaces
 hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.workspace({ workspace = "e-1" }))
