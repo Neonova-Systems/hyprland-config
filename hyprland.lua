@@ -319,8 +319,8 @@ hl.bind("SUPER + Insert", hl.dsp.exec_cmd(zsh .. " \"bookmarks-grabber\""))
 hl.bind("SUPER + mouse:273", hl.dsp.exec_cmd("~/.config/hypr/scripts/spawn-resizing-osd"))
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 hl.bind("SUPER + CONTROL + mouse:273", hl.dsp.exec_cmd("ags run ~/.config/ags/window/context-menu/context-menu.tsx --gtk 4"))
-hl.bind("SUPER + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
-hl.bind("SUPER + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
+-- hl.bind("SUPER + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
+-- hl.bind("SUPER + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
 hl.bind("SUPER + SHIFT + mouse:274", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
 
 -- Core window and layout controls
@@ -359,8 +359,6 @@ hl.bind("SUPER + grave", hl.dsp.focus({ last = true }))
 hl.bind("SUPER + U", hl.dsp.focus({ urgent_or_last = true }))
 
 -- Workspaces
-hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = "1" }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = "2" }))
 hl.bind("SUPER + 3", hl.dsp.focus({ workspace = "3" }))
