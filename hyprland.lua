@@ -13,7 +13,7 @@ require("env")
 require("general")
 require("decoration")
 require("animation")
-requre("rules_and_regulation")
+require("rules_and_regulation")
 
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd() will spawn an asynchronous process, so there is no need for & disown at the end.
