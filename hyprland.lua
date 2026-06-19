@@ -449,3 +449,4 @@ hl.gesture({
 })
 
 require("rules_and_regulation")
+require("keybinds_and_gesture")
