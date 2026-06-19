@@ -367,8 +367,8 @@ hl.bind("SUPER + grave", hl.dsp.focus({ last = true }))
 hl.bind("SUPER + U", hl.dsp.focus({ urgent_or_last = true }))
 
 -- Workspaces
-hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.workspace({ workspace = "e-1" }))
-hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.workspace({ workspace = "e+1" }))
+-- hl.bind("SUPER + SHIFT + mouse_up", hl.dsp.workspace({ workspace = "e-1" }))
+-- hl.bind("SUPER + SHIFT + mouse_down", hl.dsp.workspace({ workspace = "e+1" }))
 hl.bind("SUPER + 1", hl.dsp.workspace({ workspace = "1" }))
 hl.bind("SUPER + 2", hl.dsp.workspace({ workspace = "2" }))
 hl.bind("SUPER + 3", hl.dsp.workspace({ workspace = "3" }))
