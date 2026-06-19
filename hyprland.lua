@@ -4,10 +4,16 @@ if not pcall(require, "./.secret/hidden") then
 else 
     require("./.secret/hidden")
 end
+if not pcall(require, "monitors") then
+    print("No monitors configuration file found, skipping.")
+else 
+    require("monitors")
+end
 require("env")
 require("general")
 require("decoration")
 require("animation")
+requre("rules_and_regulation")
 
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd() will spawn an asynchronous process, so there is no need for & disown at the end.
