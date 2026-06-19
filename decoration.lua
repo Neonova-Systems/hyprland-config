@@ -47,9 +47,9 @@ hl.config({
         --     color = "rgba(00000040)",
         --     color_inactive = "",
         -- },
-        motion_blur = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#motion-blur
-            enabled = false,
-            samples = 8,
-        },
+        -- motion_blur = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#motion-blur
+        --     enabled = false,
+        --     samples = 8,
+        -- },
     },
 })
