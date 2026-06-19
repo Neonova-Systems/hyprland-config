@@ -2,23 +2,26 @@
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 -- Tags
-hl.window_rule({ match = { class = "^(firefox|librewolf|google-chrome|qutebrowser)$" }, tag = "+browser"})
+hl.window_rule({ match = { class = "^(firefox|librewolf|qutebrowser|chromium|google-chrome|zen-browser)$" }, tag = "+browser"})
 hl.window_rule({ match = { class = "^(code|code-oss|VSCodium|jetbrains-.*|nvim-qt|emacs)$" }, tag = "+code"})
 hl.window_rule({ match = { class = "^(foot|kitty|Alacritty|wezterm)$" }, tag = "+terminal"})
-
+hl.window_rule({ match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl)$"}, tag = "+game"})
+hl.window_rule({ match = { class = "^(obs|com.obsproject.Studio|Gimp|krita|Inkscape)$"}, tag = "+creative-media"})
+hl.window_rule({ match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.telegram.desktop|Element)$"}, tag = "+communication"})
+hl.window_rule({ match = { class = "^(thunar|nemo|pcmanfm|org.gnome.Nautilus|dolphin)$"}, tag = "+file-manager"})
 
 -- Workspace Routing
 hl.window_rule({ match = { tag = "browser" }, workspace = "1"})
 hl.window_rule({ match = { tag = "code" }, workspace = "2"})
 hl.window_rule({ match = { tag = "terminal" }, workspace = "3"})
+hl.window_rule({ match = { tag = "game" }, workspace = "7"})
+hl.window_rule({ match = { tag = "communication" }, workspace = "5"})
+hl.window_rule({ match = { tag = "creative-media" }, workspace = "9"})
+hl.window_rule({ match = { tag = "file-manager" }, workspace = "0"})
 
 
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize", })
 hl.window_rule({ name = "fix-xwayland-drags", match = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false, }, no_focus = true, })
-
-hl.window_rule({ name = "monitorrule", match = { class = "silent_kitty" }, monitor = "HEADLESS-3 silent", })
-hl.window_rule({ name = "monitorrule-override", match = { class = "kitty_exec_override" }, workspace = "2", })
-hl.window_rule({ name = "tag-mutation", match = { class = "kitty_tag_mutate" }, workspace = "2", })
 
 hl.window_rule({ name = "window-rule-focus-on-activate", match = { class = ".*" }, focus_on_activate = true, })
 hl.window_rule({ name = "window-rule-focus-on-activate-off", match = { class = "^(KeePassXC|Bitwarden|1Password)$" }, focus_on_activate = false, })
