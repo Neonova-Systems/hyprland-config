@@ -17,8 +17,10 @@ hl.window_rule({ match = { tag = "terminal" }, workspace = "3"})
 hl.window_rule({ match = { tag = "game" }, workspace = "7"})
 hl.window_rule({ match = { tag = "communication" }, workspace = "5"})
 hl.window_rule({ match = { tag = "creative-media" }, workspace = "9"})
-hl.window_rule({ match = { tag = "file-manager" }, workspace = "0"})
+hl.window_rule({ match = { tag = "file-manager" }, workspace = "special"})
 
+-- Special Workspace
+hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
 
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize", })
 hl.window_rule({ name = "fix-xwayland-drags", match = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false, }, no_focus = true, })
