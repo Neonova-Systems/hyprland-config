@@ -27,7 +27,6 @@ hl.bind(mainMod .. " + Insert", hl.dsp.exec_cmd(zsh .. " \"bookmarks-grabber\"")
 hl.bind(mainMod .. " + CONTROL + B", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch browser"))
 hl.bind(mainMod .. " + CONTROL + E", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch editor"))
 hl.bind(mainMod .. " + CONTROL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch terminal"))
-hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(Launcher), { release = true }) -- Open vicinae on first press, closes it on second
 hl.bind(mainMod .." + Tab", function()
     hl.dispatch(hl.dsp.window.cycle_next())   -- Change focus to another window
     hl.dispatch(hl.dsp.window.bring_to_top()) -- Bring it to the top
@@ -72,7 +71,7 @@ hl.bind(mainMod .. " + SHIFT + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + SHIFT + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 -- hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
 -- hl.bind(mainMod .. " + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
-hl.bind(mainMod .. " + CONTROL + mouse_up", function()
+hl.bind(mainMod .. " + mouse_up", function()
     local current_layout = hl.get_config("general.layout")
     if current_layout == "scrolling" then
         hl.dsp.layout("move +col")
@@ -81,8 +80,8 @@ hl.bind(mainMod .. " + CONTROL + mouse_up", function()
         hl.dispatch(hl.dsp.window.bring_to_top())
     end
 end)
-hl.bind(mainMod .. " + CONTROL + mouse_down", function()
-    local current_layout = hl.get_config("general.layout")
+hl.bind(mainMod .. " + mouse_down", function()
+    local current_layout = hl.get_active_workspace().tiled_layout
     hl.notification.create({ title = "Current Layout", text = current_layout, timeout = 2000, urgency = "low" })
     
     if current_layout == "scrolling" then
