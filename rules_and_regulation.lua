@@ -21,6 +21,9 @@ hl.window_rule({ match = { class = "^(wireshark|burpsuite|owasp-zap|ghidra|ida.*
 hl.window_rule({ match = { class = "^(dbeaver|beekeeper-companion|pgadmin.*|mongodb-compass|mysql-workbench|redisinsight)$" }, tag = "+database" })
 hl.window_rule({ match = { class = "^(electrum|feather|monero-wallet-gui|metamask|ledger-live)$" }, tag = "+crypto" })
 hl.window_rule({ match = { class = "^(lmstudio|chatbox|ollama.*|jan|metatube)$" }, tag = "+ai-tools" })
+hl.window_rule({ match = { class = "^(rstudio|octave.*|scilab|mathematica|matlab|paraview|qgis.*|gnhour|stellarium|avogadro|vmd|sigrok.*|pulseview|saleae.*)$" }, tag = "+scientific" })
+hl.window_rule({ match = { class = "^(gqrx|sdrangel|cubicsdr|chirp|fldigi|dump1090|urh)$" }, tag = "+sdr-radio" })
+hl.window_rule({ match = { class = "^(kicad|fritzing|eagle|easyeda|librepcb|gtkwave|verilator)$" }, tag = "+hardware-eda" })
 hl.window_rule({ match = { xdg_tag = ".+" }, tag = "+has-xdgtag" })
 
 -- Workspace Routing
