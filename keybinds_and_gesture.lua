@@ -72,7 +72,7 @@ hl.bind(mainMod .. " + SHIFT + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 -- hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
 -- hl.bind(mainMod .. " + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
 hl.bind(mainMod .. " + mouse_up", function()
-    local current_layout = hl.get_config("general.layout")
+    local current_layout = hl.get_active_workspace().tiled_layout
     if current_layout == "scrolling" then
         hl.dsp.layout("move +col")
     else
@@ -82,8 +82,6 @@ hl.bind(mainMod .. " + mouse_up", function()
 end)
 hl.bind(mainMod .. " + mouse_down", function()
     local current_layout = hl.get_active_workspace().tiled_layout
-    hl.notification.create({ title = "Current Layout", text = current_layout, timeout = 2000, urgency = "low" })
-    
     if current_layout == "scrolling" then
         hl.dsp.layout("move -col")
     else
