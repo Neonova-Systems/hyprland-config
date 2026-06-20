@@ -13,7 +13,7 @@ hl.window_rule({ match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.
 hl.window_rule({ match = { class = "^(thunar|nemo|pcmanfm.*|org.gnome.Nautilus|dolphin|yazi|ranger|doublecmd|krusader|file-roller|ark|peazip)$" }, tag = "+file-manager" })
 hl.window_rule({ match = { class = "^(KeePassXC|Bitwarden|1Password|proton-pass|seahorse|gnome-passwords.*|keepass|kleopatra)$" }, tag = "+password-manager" })
 hl.window_rule({ match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg|loupe|qview|gwenview|digikam|viewnior|shotwell)$" }, tag = "+image-viewer" })
-hl.window_rule({ match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager|corectrl|gparted.*|htop|btop|nvtop|wihotspot)$" }, tag = "+utility" })
+hl.window_rule({ match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager|corectrl|gparted.*|htop|btop|nvtop|wihotspot|hyprland-share-picker)$" }, tag = "+utility" })
 hl.window_rule({ match = { class = "^(libreoffice-.+|soffice|wps|et|wpp|okular|org.gnome.Papers|zathura|evince|pdfarranger|sioyek)$" }, tag = "+office-docs" })
 hl.window_rule({ match = { class = "^(Waydroid|waydroid..*|com.android..*)$" }, tag = "+android-env" })
 hl.window_rule({ match = { class = "^(virt-manager|virt-viewer|qemu.*|VirtualBox.*|proxmox.*|vmware.*)$" }, tag = "+virtualization" })
@@ -60,9 +60,6 @@ hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, flo
 -- Picture-in-Picture and Sharing indicator rules
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true, pin = true})
 hl.window_rule({ match = { title = "^(.*Sharing Indicator.*)$" }, no_initial_focus = true, float = true, move = "0 0", no_anim = true, suppress_event = "activa activatefocuste"})
-
-
-hl.window_rule({ name = "fix-xwayland-drags", match = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false, }, no_focus = true, })
 
 -- Layer rules
 hl.layer_rule({ match = { namespace = "^(workspace-info-osd)$" }, animation = "slide up", })
