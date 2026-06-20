@@ -8,7 +8,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local zsh = "zsh -ic "
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(FileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(Menu))
-hl.bind("SUPER + P", hl.dsp.exec_cmd(Launcher))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(Launcher))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(mainMod .. " + space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + CONTROL + return", hl.dsp.exec_cmd(Terminal))
@@ -83,7 +83,7 @@ hl.bind(mainMod .. " + CONTROL + mouse_up", function()
 end)
 hl.bind(mainMod .. " + CONTROL + mouse_down", function()
     local current_layout = hl.get_config("general.layout")
-    hl.notification({ title = "Current Layout", text = current_layout, icon = "layout" })
+    hl.notification.create({ title = "Current Layout", text = current_layout, icon = "layout", timeout = 2000, urgency = "low" })
     
     if current_layout == "scrolling" then
         hl.dsp.layout("move -col")
