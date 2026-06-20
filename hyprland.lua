@@ -4,6 +4,12 @@ require("general")
 require("decoration")
 require("animation")
 
+-- Global Variables
+FileManager = "thunar"
+Terminal = "foot"
+Menu = "hyprlauncher"
+Launcher = "vicinae"
+
 if not pcall(require, "monitors") then -- nwg-display generated config
 else require("monitors") end
 
@@ -286,118 +292,6 @@ hl.device({
     scroll_points = "custom 0.1678286744 0.000 0.040 0.080 0.129 0.189 0.250 0.310 0.370 0.448 0.540 0.631 0.723 0.815 0.906 0.998 1.089 1.181 1.273 1.364 1.456 1.548 1.639 1.731 1.823 2.012",
 })
 
--- Launchers, media, and utilities
-local zsh = "zsh -ic "
-hl.bind("SUPER + SHIFT + R", hl.dsp.force_renderer_reload())
-hl.bind("SUPER + SHIFT + L", hl.dsp.exec_cmd(zsh .. " \"lock-screen\""), { description = "Lock screen" })
-hl.bind("SUPER + E", hl.dsp.exec_cmd("/usr/bin/nautilus"))
-hl.bind("SUPER + P", hl.dsp.exec_cmd("vicinae"))
-hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"wofi-core\""))
-hl.bind("SUPER + V", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-clipboard; wofi-clipboard\""))
-hl.bind("SUPER + semicolon", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-unicode; wofi-unicode\""))
-hl.bind("SUPER + R", hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind("SUPER + CONTROL + return", hl.dsp.exec_cmd("foot"))
-hl.bind("SUPER + CONTROL + B", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch browser"))
-hl.bind("SUPER + CONTROL + E", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch editor"))
-hl.bind("SUPER + CONTROL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch terminal"))
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(zsh .. " \"brightness-handler up\""), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(zsh .. " \"brightness-handler down\""), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
-hl.bind("SUPER + CONTROL + XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"))
-hl.bind("SUPER + CONTROL + XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+"))
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("SUPER + print", hl.dsp.exec_cmd(zsh .. " \"screenshot\""))
-hl.bind("SUPER + SHIFT + S", hl.dsp.exec_raw(zsh .. " \"autoload screenshot-area; screenshot-area\""))
-hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd(zsh .. " \"screen-ocr\""))
-hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("SUPER + Insert", hl.dsp.exec_cmd(zsh .. " \"bookmarks-grabber\""))
-hl.bind("SUPER + mouse:273", hl.dsp.exec_cmd("~/.config/hypr/scripts/spawn-resizing-osd"))
-hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
-hl.bind("SUPER + CONTROL + mouse:273", hl.dsp.exec_cmd("ags run ~/.config/ags/window/context-menu/context-menu.tsx --gtk 4"))
--- hl.bind("SUPER + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
--- hl.bind("SUPER + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
-hl.bind("SUPER + SHIFT + mouse:274", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
-
--- Core window and layout controls
-hl.bind("SUPER + SHIFT + E", hl.dsp.exit())
-hl.bind("SUPER + CONTROL + S", hl.dsp.exec_cmd("uwsm stop"), { description = "Stop session via uwsm" })
-hl.bind("SUPER + C", hl.dsp.window.close())
-hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
-hl.bind("SUPER + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
-hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
-hl.bind("SUPER + CONTROL + P", hl.dsp.window.pin({ action = "toggle", window = "activewindow" }))
-hl.bind("SUPER + M", hl.dsp.layout("swapwithmaster"))
-hl.bind("SUPER + return", hl.dsp.layout("focusmaster"))
-hl.bind("SUPER + i", hl.dsp.layout("addmaster"))
-hl.bind("SUPER + d", hl.dsp.layout("removemaster"))
-hl.bind("SUPER + SHIFT + space", hl.dsp.layout("orientationnext"))
-hl.bind("SUPER + j", hl.dsp.layout("cyclenext noloop"))
-hl.bind("SUPER + k", hl.dsp.layout("cycleprev noloop"))
-hl.bind("SUPER + SHIFT + j", hl.dsp.layout("swapnext noloop"))
-hl.bind("SUPER + SHIFT + k", hl.dsp.layout("swapprev noloop"))
-hl.bind("SUPER + H", hl.dsp.layout("mfact -0.05"))
-hl.bind("SUPER + L", hl.dsp.layout("mfact +0.05"))
-
--- Focus, floating, and navigation
-hl.bind("SUPER + space", hl.dsp.window.float({ action = "toggle" }))
-hl.bind("SUPER + Tab", hl.dsp.window.cycle_next())
-hl.bind("SUPER + SHIFT + Tab", hl.dsp.window.cycle_next({ direction = "prev" }))
-hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
-hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
-hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
-hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
-hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({ direction = "left" }))
-hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({ direction = "right" }))
-hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({ direction = "up" }))
-hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({ direction = "down" }))
-hl.bind("SUPER + grave", hl.dsp.focus({ last = true }))
-hl.bind("SUPER + U", hl.dsp.focus({ urgent_or_last = true }))
-
--- Workspaces
-hl.bind("SUPER + 1", hl.dsp.focus({ workspace = "1" }))
-hl.bind("SUPER + 2", hl.dsp.focus({ workspace = "2" }))
-hl.bind("SUPER + 3", hl.dsp.focus({ workspace = "3" }))
-hl.bind("SUPER + 4", hl.dsp.focus({ workspace = "4" }))
-hl.bind("SUPER + 5", hl.dsp.focus({ workspace = "5" }))
-hl.bind("SUPER + 6", hl.dsp.focus({ workspace = "6" }))
-hl.bind("SUPER + 7", hl.dsp.focus({ workspace = "7" }))
-hl.bind("SUPER + 8", hl.dsp.focus({ workspace = "8" }))
-hl.bind("SUPER + 9", hl.dsp.focus({ workspace = "9" }))
-hl.bind("SUPER + CONTROL + 1", hl.dsp.focus({ workspace = "1" }))
-hl.bind("SUPER + CONTROL + 2", hl.dsp.focus({ workspace = "2" }))
-hl.bind("SUPER + CONTROL + 3", hl.dsp.focus({ workspace = "3" }))
-hl.bind("SUPER + CONTROL + 4", hl.dsp.focus({ workspace = "4" }))
-hl.bind("SUPER + CONTROL + 5", hl.dsp.focus({ workspace = "5" }))
-hl.bind("SUPER + CONTROL + 6", hl.dsp.focus({ workspace = "6" }))
-hl.bind("SUPER + CONTROL + 7", hl.dsp.focus({ workspace = "7" }))
-hl.bind("SUPER + CONTROL + 8", hl.dsp.focus({ workspace = "8" }))
-hl.bind("SUPER + CONTROL + 9", hl.dsp.focus({ workspace = "9" }))
-hl.bind("SUPER + 0", hl.dsp.workspace.toggle_special())
-hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = "1" }))
-hl.bind("SUPER + SHIFT + 2", hl.dsp.window.move({ workspace = "2" }))
-hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = "3" }))
-hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = "4" }))
-hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = "5" }))
-hl.bind("SUPER + SHIFT + 6", hl.dsp.window.move({ workspace = "6" }))
-hl.bind("SUPER + SHIFT + 7", hl.dsp.window.move({ workspace = "7" }))
-hl.bind("SUPER + SHIFT + 8", hl.dsp.window.move({ workspace = "8" }))
-hl.bind("SUPER + SHIFT + 9", hl.dsp.window.move({ workspace = "9" }))
-hl.bind("SUPER + SHIFT + 0", hl.dsp.window.move({ workspace = "special" }))
-
--- Monitors
-hl.bind("SUPER + Comma", hl.dsp.focus({ monitor = "l" }))
-hl.bind("SUPER + Period", hl.dsp.focus({ monitor = "r" }))
-hl.bind("SUPER + ALT + Comma", hl.dsp.window.move({ monitor = "l" }))
-hl.bind("SUPER + ALT + Period", hl.dsp.window.move({ monitor = "r" }))
-hl.bind("SUPER + ALT + left", hl.dsp.workspace.move({ monitor = "l" }))
-hl.bind("SUPER + ALT + right", hl.dsp.workspace.move({ monitor = "r" }))
-hl.bind("SUPER + ALT + S", hl.dsp.workspace.swap_monitors({ monitor1 = "current", monitor2 = "+1" }))
-
 -- Mouse-mode submap
 hl.define_submap("mouse-mode", "reset", function()
     hl.bind("escape", hl.dsp.submap("reset"))
@@ -439,14 +333,6 @@ hl.define_submap("resize", "reset", function()
     hl.bind("catchall", hl.dsp.submap("reset"))
 end)
 
-
-hl.gesture({
-    fingers = 3,
-    direction = "left",
-    action = function()
-        hl.dispatch(hl.dsp.exec_cmd("kitty"))
-    end,
-})
 
 require("rules_and_regulation")
 require("keybinds_and_gesture")
