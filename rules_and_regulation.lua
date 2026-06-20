@@ -15,8 +15,9 @@ hl.window_rule({ match = { class = "^(KeePassXC|Bitwarden|1Password|proton-pass|
 hl.window_rule({ match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg|loupe|qview|gwenview|digikam)$" }, tag = "+image-viewer" })
 hl.window_rule({ match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager|corectrl|gparted.*|htop|btop|nvtop|wihotspot)$" }, tag = "+utility" })
 hl.window_rule({ match = { class = "^(libreoffice-.+|soffice|wps|et|wpp|okular|org.gnome.Papers|zathura|evince)$" }, tag = "+office-docs" })
-hl.window_rule({ match = { class = "^(Waydroid|waydroid..*|com%.android..*)$" }, tag = "+android-env" })
+hl.window_rule({ match = { class = "^(Waydroid|waydroid..*|com.android..*)$" }, tag = "+android-env" })
 hl.window_rule({ match = { class = "^(virt-manager|virt-viewer|qemu.*|VirtualBox.*)$" }, tag = "+virtualization" })
+hl.window_rule({ match = { class = "^(wireshark|burpsuite|owasp-zap|ghidra|ida.*|radare2|iaito|maltego|nmap|remmina|rustdesk|anydesk|cutter|gns3|packettracer|ettercap|aircrack-ng|hashcat|john|nikto|dirb|gobuster|wpscan|hydra|metasploit.*|sqlmap|armitage|cobaltstrike)$" }, tag = "+hacking" })
 hl.window_rule({ match = { xdg_tag = ".+" }, tag = "+has-xdgtag" })
 
 -- Workspace Routing
