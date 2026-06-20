@@ -72,7 +72,7 @@ hl.bind(mainMod .. " + SHIFT + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + SHIFT + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 -- hl.bind(mainMod .. " + mouse_down", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')]]))
 -- hl.bind(mainMod .. " + mouse_up", hl.dsp.exec_cmd([[hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')]]))
-hl.bind(mainMod .. " + mouse_up", function()
+hl.bind(mainMod .. " + CONTROL + mouse_up", function()
     local current_layout = hl.get_config("general.layout")
     if current_layout == "scrolling" then
         hl.dsp.layout("move +col")
@@ -81,8 +81,10 @@ hl.bind(mainMod .. " + mouse_up", function()
         hl.dispatch(hl.dsp.window.bring_to_top())
     end
 end)
-hl.bind(mainMod .. " + mouse_down", function()
+hl.bind(mainMod .. " + CONTROL + mouse_down", function()
     local current_layout = hl.get_config("general.layout")
+    print("Current layout: " .. current_layout) -- Debug print to check the current layout
+    
     if current_layout == "scrolling" then
         hl.dsp.layout("move -col")
     else
