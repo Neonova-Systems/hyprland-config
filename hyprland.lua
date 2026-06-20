@@ -7,7 +7,7 @@ require("animation")
 -- Global Variables
 FileManager = "nautilus"
 Terminal = "foot"
-Menu = "hyprlauncher"
+Menu = "hyprland-run"
 Launcher = "vicinae"
 
 if not pcall(require, "monitors") then -- nwg-display generated config
