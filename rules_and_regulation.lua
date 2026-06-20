@@ -56,6 +56,7 @@ hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize", }) -- Su
 hl.window_rule({ match = { class = "^(cs2)$" }, immediate = true, }) -- forces allow tearing
 hl.window_rule({ match = { class = "^(pinentry-.*)$" }, stay_focused = true, })
 hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, center = true, persistent_size = true})
+hl.window_rule({ name  = "move-hyprland-run", match = { class = "hyprland-run" }, move  = "20 monitor_h-120", float = true, })
 
 -- Picture-in-Picture and Sharing indicator rules
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true, pin = true})
