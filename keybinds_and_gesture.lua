@@ -82,6 +82,8 @@ hl.bind(mainMod .. " + mouse_up", function()
 end)
 hl.bind(mainMod .. " + mouse_down", function()
     local current_layout = hl.get_active_workspace().tiled_layout
+    hl.notification.create({ title = "Current Layout", text = current_layout, timeout = 1000 })
+
     if current_layout == "scrolling" then
         hl.dsp.layout("move -col")
     else

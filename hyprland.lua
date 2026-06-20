@@ -5,7 +5,7 @@ require("decoration")
 require("animation")
 
 -- Global Variables
-FileManager = "thunar"
+FileManager = "nautilus"
 Terminal = "foot"
 Menu = "hyprlauncher"
 Launcher = "vicinae"
