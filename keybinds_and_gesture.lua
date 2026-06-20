@@ -74,7 +74,7 @@ hl.bind(mainMod .. " + SHIFT + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", function()
     local current_layout = hl.get_active_workspace().tiled_layout
     if current_layout == "scrolling" then
-        hl.dsp.layout("move +col")
+        hl.dsp.layout("focus right")
     else
         hl.dispatch(hl.dsp.window.cycle_next())
         hl.dispatch(hl.dsp.window.bring_to_top())
@@ -82,10 +82,8 @@ hl.bind(mainMod .. " + mouse_up", function()
 end)
 hl.bind(mainMod .. " + mouse_down", function()
     local current_layout = hl.get_active_workspace().tiled_layout
-
     if current_layout == "scrolling" then
-        hl.notification.create({ title = "Current Layout", text = current_layout, timeout = 1000 })
-        hl.dsp.layout("move -col")
+        hl.dsp.layout("focus left")
     else
         hl.dispatch(hl.dsp.window.cycle_next({ direction = "prev"}))
         hl.dispatch(hl.dsp.window.bring_to_top())
