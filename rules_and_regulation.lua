@@ -2,18 +2,18 @@
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 -- Tags
-hl.window_rule({ match = { class = "^(firefox|librewolf|qutebrowser|chromium|google-chrome|zen-browser)$" }, tag = "+browser"})
-hl.window_rule({ match = { class = "^(code|code-oss|VSCodium|jetbrains-.*|nvim-qt|emacs)$" }, tag = "+code"})
-hl.window_rule({ match = { class = "^(foot|kitty|Alacritty|wezterm)$" }, tag = "+terminal"})
+hl.window_rule({ match = { class = "^(firefox.*|librewolf|qutebrowser|chromium|google-chrome|zen-browser|Brave-browser|thorium)$" }, tag = "+browser" })
+hl.window_rule({ match = { class = "^(code|code-oss|VSCodium|jetbrains-.+|nvimport|nvim-qt|emacs|neovide|sublime_text|Helix)$" }, tag = "+code" })
+hl.window_rule({ match = { class = "^(foot|kitty|Alacritty|wezterm|ghostty|rio)$" }, tag = "+terminal" })
 hl.window_rule({ match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl)$"}, tag = "+game"})
-hl.window_rule({ match = { class = "^(retroarch|mGBA|Snes9x|PCSX2)$"}, tag = "+game-emulator"})
-hl.window_rule({ match = { class = "^(mpv|vlc|celluloid)$" }, tag = "+media", })
-hl.window_rule({ match = { class = "^(obs|com.obsproject.Studio|Gimp|krita|Inkscape)$"}, tag = "+creative-media"})
-hl.window_rule({ match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.telegram.desktop|Element)$"}, tag = "+communication"})
-hl.window_rule({ match = { class = "^(thunar|nemo|pcmanfm|org.gnome.Nautilus|dolphin)$"}, tag = "+file-manager"})
-hl.window_rule({ match = { class = "^(KeePassXC|Bitwarden|1Password)$"}, tag = "+password-manager"})
-hl.window_rule({ match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg)$"}, tag = "+image-viewer"})
-hl.window_rule({ match = { class = "^(qalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.*)$"}, tag = "+utility"})
+hl.window_rule({ match = { class = "^(retroarch|mGBA|Snes9x|PCSX2|dolphin-emu|yuzu|ryujinx|mgba.*)$"}, tag = "+game-emulator"})
+hl.window_rule({ match = { class = "^(mpv|vlc|celluloid|clapper|haruna)$" }, tag = "+media" })
+hl.window_rule({ match = { class = "^(obs|com.obsproject.Studio|Gimp.*|krita|Inkscape|blender|darktable)$" }, tag = "+creative-media" })
+hl.window_rule({ match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.telegram.desktop|Element|signal|whatsapp-nativefy)$" }, tag = "+communication" })
+hl.window_rule({ match = { class = "^(thunar|nemo|pcmanfm.*|org.gnome%.Nautilus|dolphin|yazi|ranger)$" }, tag = "+file-manager" })
+hl.window_rule({ match = { class = "^(KeePassXC|Bitwarden|1Password|proton-pass)$" }, tag = "+password-manager" })
+hl.window_rule({ match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg|loupe|qview)$"}, tag = "+image-viewer"})
+hl.window_rule({ match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager)$" }, tag = "+utility" })
 hl.window_rule({ match = { xdg_tag = ".+" }, tag = "+has-xdgtag" })
 
 -- Workspace Routing
