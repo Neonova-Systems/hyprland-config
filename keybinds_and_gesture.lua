@@ -1,3 +1,8 @@
+-- ░  ░░░░  ░░        ░░  ░░░░  ░░       ░░░        ░░   ░░░  ░░       ░░░░      ░░░░░░░░░░      ░░░        ░░░      ░░░        ░░  ░░░░  ░░       ░░░        ░
+-- ▒  ▒▒▒  ▒▒▒  ▒▒▒▒▒▒▒▒▒  ▒▒  ▒▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒    ▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒
+-- ▓     ▓▓▓▓▓      ▓▓▓▓▓▓    ▓▓▓▓       ▓▓▓▓▓▓  ▓▓▓▓▓  ▓  ▓  ▓▓  ▓▓▓▓  ▓▓▓      ▓▓▓▓▓▓▓▓▓  ▓▓▓   ▓▓      ▓▓▓▓▓      ▓▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓  ▓▓       ▓▓▓      ▓▓▓
+-- █  ███  ███  ███████████  █████  ████  █████  █████  ██    ██  ████  ████████  ████████  ████  ██  ██████████████  █████  █████  ████  ██  ███  ███  ███████
+-- █  ████  ██        █████  █████       ███        ██  ███   ██       ████      ██████████      ███        ███      ██████  ██████      ███  ████  ██        █
 -- https://wiki.hypr.land/Configuring/Basics/Binds/
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
 local functions = require("functions")
@@ -94,7 +99,7 @@ hl.bind(mainMod .. " + return", functions.layout_bind({
     scrolling = hl.dsp.layout("fit_into_view")
 }))
 hl.bind(mainMod .. " + Z", functions.zoom)
-hl.bind(mainMod .. " + KP_ADD", function() functions.zoom(0.5) end)
+hl.bind(mainMod .. " + plus", function() functions.zoom(0.5) end)
 hl.bind(mainMod .. " + minus", function() functions.zoom(-0.5) end)
 hl.bind(mainMod .." + F1", function () -- Hotkey to toggle "game mode" which disables animations, gaps and window decorations for a more immersive gaming experience. It does this by checking if animations are currently disabled and if so it reloads the config to restore everything, otherwise it applies the "game mode" settings.
     local game_mode = (hl.get_config("animations.enabled") == false)
