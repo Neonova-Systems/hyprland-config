@@ -1,5 +1,6 @@
 -- https://wiki.hypr.land/Configuring/Basics/Binds/
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
+local functions = require("functions")
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -58,6 +59,40 @@ hl.bind(mainMod .. " + SHIFT + j", hl.dsp.layout("swapnext noloop"))
 hl.bind(mainMod .. " + SHIFT + k", hl.dsp.layout("swapprev noloop"))
 hl.bind(mainMod .. " + H", hl.dsp.layout("mfact -0.05"))
 hl.bind(mainMod .. " + L", hl.dsp.layout("mfact +0.05"))
+hl.bind(mainMod .. " + Z", functions.zoom)
+hl.bind(mainMod .. " + KP_ADD", function() functions.zoom(0.5) end)
+hl.bind(mainMod .. " + minus", function() functions.zoom(-0.5) end)
+hl.bind(mainMod .." + F1", function () -- Hotkey to toggle "game mode" which disables animations, gaps and window decorations for a more immersive gaming experience. It does this by checking if animations are currently disabled and if so it reloads the config to restore everything, otherwise it applies the "game mode" settings.
+    local game_mode = (hl.get_config("animations.enabled") == false)
+    if game_mode then
+        hl.exec_cmd("hyprctl reload")
+        return
+    end
+    hl.config({
+        general = {
+            gaps_in = 0, gaps_out = 0, -- Disable gaps  
+            border_size = 0,
+        },
+
+        animations = {
+            enabled = false, -- Disable animations
+        },
+        
+        -- Disable blur, shadow and window rounding
+        decoration = {
+            shadow = { enabled = false },
+            blur = { enabled = false },
+            rounding = 0,
+        }
+    })
+end)
+hl.bind("SUPER + X", function () -- Minimize window using a special workspace as a scratchpad since Hyprland does not have native minimize functionality
+    hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+    hl.dispatch(hl.dsp.window.move({workspace = "+0"}))
+    hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+    hl.dispatch(hl.dsp.window.move({workspace = "special:minimize"}))
+    hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
+end)
 
 -- Mouse Binds
 hl.bind(mainMod .. " + CONTROL + mouse:273", hl.dsp.exec_cmd("ags run ~/.config/ags/window/context-menu/context-menu.tsx --gtk 4"))
