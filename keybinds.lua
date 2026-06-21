@@ -53,7 +53,33 @@ hl.bind(mainMod .. " + grave", hl.dsp.focus({ last = true }))
 hl.bind(mainMod .. " + U", hl.dsp.focus({ urgent_or_last = true }))
 hl.bind(mainMod .. " + CONTROL + S", hl.dsp.exec_cmd("uwsm stop"), { description = "Stop session via uwsm" })
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
+hl.bind(mainMod .. " + SHIFT + F", function()
+    local ws = hl.get_active_workspace().id
+    local windows = hl.get_windows()
+    local tiled_count = 0
+    local total_count = 0
 
+    -- Count current workspace window states
+    for _, win in ipairs(windows) do
+        if win.workspace == ws then
+            total_count = total_count + 1
+            if not win.floating then
+                tiled_count = tiled_count + 1
+            end
+        end
+    end
+
+    if total_count == 0 then return end
+
+    -- Target state = toggle based on majority state
+    local target_action = (tiled_count > 0) and "enable" or "disable"
+
+    for _, win in ipairs(windows) do
+        if win.workspace == ws then
+            hl.dispatch(hl.dsp.window.float({ action = target_action, window = "address:" .. win.address }))
+        end
+    end
+end)
 hl.bind(mainMod .. " + SHIFT + space", functions.layout_bind({
     master = hl.dsp.layout("orientationnext"),
     scrolling = hl.dsp.layout("fit visible")

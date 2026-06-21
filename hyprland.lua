@@ -244,4 +244,4 @@ hl.define_submap("resize", "reset", function()
 end)
 
 require("rules_and_regulation")
-require("keybinds_and_gesture")
+require("keybinds")
