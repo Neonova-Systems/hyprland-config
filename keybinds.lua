@@ -12,11 +12,12 @@ local functions = require("functions")
 ---------------------
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local zsh = "zsh -ic "
+local true_center = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(FileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(Menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(Launcher))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind(mainMod .. " + space", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + space", function() hl.dsp.window.float({ action = "toggle" }); hl.dsp.window.move({ x = true_center[1], y = true_center[2], window = "activewindow" }) end)
 hl.bind(mainMod .. " + CONTROL + return", hl.dsp.exec_cmd(Terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
@@ -27,13 +28,13 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_raw(zsh .. " \"autoload screensho
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(zsh .. " \"screen-ocr\""))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(zsh .. " \"lock-screen\""), { description = "Lock screen" })
 hl.bind(mainMod .. " + Insert", hl.dsp.exec_cmd(zsh .. " \"bookmarks-grabber\""))
--- hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"wofi-core\""))
--- hl.bind("SUPER + V", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-clipboard; wofi-clipboard\""))
--- hl.bind("SUPER + semicolon", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-unicode; wofi-unicode\""))
+-- hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"wofi-core\""))
+-- hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-clipboard; wofi-clipboard\""))
+-- hl.bind(mainMod .. " + semicolon", hl.dsp.exec_cmd("pkill wofi || " .. zsh .. " \"autoload wofi-unicode; wofi-unicode\""))
 hl.bind(mainMod .. " + CONTROL + B", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch browser"))
 hl.bind(mainMod .. " + CONTROL + E", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch editor"))
 hl.bind(mainMod .. " + CONTROL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch terminal"))
-hl.bind(mainMod .." + Tab", function()
+hl.bind(mainMod .. " + Tab", function()
     hl.dispatch(hl.dsp.window.cycle_next())   -- Change focus to another window
     hl.dispatch(hl.dsp.window.bring_to_top()) -- Bring it to the top
 end)
@@ -151,7 +152,7 @@ hl.bind(mainMod .." + F1", function () -- Hotkey to toggle "game mode" which dis
         }
     })
 end)
-hl.bind("SUPER + X", function () -- Minimize window using a special workspace as a scratchpad since Hyprland does not have native minimize functionality
+hl.bind(mainMod .. " + X", function () -- Minimize window using a special workspace as a scratchpad since Hyprland does not have native minimize functionality
     hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
     hl.dispatch(hl.dsp.window.move({workspace = "+0"}))
     hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
