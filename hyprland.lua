@@ -17,6 +17,8 @@ require("animation")
 require("input_and_device_inputs")
 require("gestures")
 require("on_event_and_autostart")
+require("renderer")
+require("layouts")
 
 -- Global Variables
 FileManager = "nautilus"
@@ -147,8 +149,6 @@ hl.config({
     },
 
 })
-
-
 
 require("rules_and_regulation")
 require("keybinds")
