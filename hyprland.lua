@@ -202,46 +202,6 @@ hl.config({
 })
 
 
--- Mouse-mode submap
-hl.define_submap("mouse-mode", "reset", function()
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("h", hl.dsp.exec_cmd("~/.config/hypr/scripts/handle-mousecursor -l"))
-    hl.bind("j", hl.dsp.exec_cmd("~/.config/hypr/scripts/handle-mousecursor -d"))
-    hl.bind("k", hl.dsp.exec_cmd("~/.config/hypr/scripts/handle-mousecursor -u"))
-    hl.bind("l", hl.dsp.exec_cmd("~/.config/hypr/scripts/handle-mousecursor -r"))
-    hl.bind("catchall", hl.dsp.submap("reset"))
-end)
-
--- Manage-window submap
-hl.define_submap("manage-window", "reset", function()
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("mouse:272", hl.dsp.window.drag())
-    hl.bind("mouse:273", hl.dsp.window.resize())
-    hl.bind("mouse:272", hl.dsp.submap("reset"))
-    hl.bind("mouse:273", hl.dsp.submap("reset"))
-    hl.bind("catchall", hl.dsp.submap("reset"))
-end)
-
--- Power submap
-hl.define_submap("power", "reset", function()
-    hl.bind("s", hl.dsp.exec_cmd("systemctl suspend"), { repeating = true })
-    hl.bind("r", hl.dsp.exec_cmd("systemctl reboot"), { repeating = true })
-    hl.bind("p", hl.dsp.exec_cmd("systemctl poweroff"), { repeating = true })
-    hl.bind("l", hl.dsp.exec_cmd("$zsh \"lock-screen\""), { repeating = true })
-    hl.bind("e", hl.dsp.exec_cmd("uwsm stop"), { repeating = true })
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("catchall", hl.dsp.submap("reset"))
-end)
-
--- Resize submap
-hl.define_submap("resize", "reset", function()
-    -- hl.bind("h", hl.dsp.window.resize({ amount = "-20 0" }), { repeating = true })
-    -- hl.bind("l", hl.dsp.window.resize({ amount = "20 0" }), { repeating = true })
-    -- hl.bind("k", hl.dsp.window.resize({ amount = "0 -20" }), { repeating = true })
-    -- hl.bind("j", hl.dsp.window.resize({ amount = "0 20" }), { repeating = true })
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("catchall", hl.dsp.submap("reset"))
-end)
 
 require("rules_and_regulation")
 require("keybinds")
