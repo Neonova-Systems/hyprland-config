@@ -12,14 +12,13 @@ local functions = require("functions")
 ---------------------
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local zsh = "zsh -ic "
-local true_center = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(FileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(Menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(Launcher))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(mainMod .. " + space", function() 
-    hl.dispatch(hl.dsp.window.float({ action = "toggle" })); 
-    hl.dispatch(hl.dsp.window.move({ x = true_center[1], y = true_center[2], window = "activewindow" }))
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    hl.dispatch(hl.dsp.window.center())
 end)
 hl.bind(mainMod .. " + CONTROL + return", hl.dsp.exec_cmd(Terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
