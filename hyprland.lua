@@ -127,27 +127,6 @@ hl.config({
         disable_xdg_env_checks = false,
     },
 
-    opengl = {
-        nvidia_anti_flicker = true,
-    },
-
-    render = {
-        direct_scanout = 2,
-        expand_undersized_textures = true,
-        xp_mode = false,
-        ctm_animation = 2,
-        cm_enabled = true,
-        send_content_type = true,
-        cm_auto_hdr = 1,
-        new_render_scheduling = false,
-        non_shader_cm = 3,
-        cm_sdr_eotf = "default",
-        commit_timing_enabled = true,
-    },
-
-    quirks = {
-        prefer_hdr = 0,
-    },
 
     debug = {
         overlay = false,
@@ -165,13 +144,6 @@ hl.config({
         colored_stdout_logs = true,
         pass = false,
         full_cm_proto = false,
-    },
-
-    xwayland = {
-        enabled = true,
-        use_nearest_neighbor = false,
-        force_zero_scaling = false,
-        create_abstract_socket = false,
     },
 
 })
