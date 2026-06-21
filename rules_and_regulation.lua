@@ -43,27 +43,25 @@ hl.window_rule({ match = { tag = "creative-media" }, workspace = "9"})
 hl.window_rule({ match = { tag = "virtualization" }, workspace = "8"})
 hl.window_rule({ match = { tag = "file-manager" }, workspace = "special"})
 
--- Special Workspace
-hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
-
 -- Window Rules
+local true_center = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }
 hl.window_rule({ match = { tag = "file-manager"}, float = true, animation = "slide down", move = {"cursor_x-(window_w*0.5)", "cursor_y-(window_h*0.5)"}, persistent_size = true})
 hl.window_rule({ match = { tag = "terminal" }, no_blur = true, no_shadow = true, })
 hl.window_rule({ match = { tag = "password-manager" }, focus_on_activate = false, no_screen_share = true})
-hl.window_rule({ match = { tag = "utility" }, float = true, move = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }, persistent_size = true })
+hl.window_rule({ match = { tag = "utility" }, float = true, move = true_center, persistent_size = true })
 hl.window_rule({ match = { tag = "game" }, focus_on_activate = true, sync_fullscreen = true, no_shortcuts_inhibit = true, content = "game"})
 hl.window_rule({ match = { tag = "game", xwayland = true }, allows_input = true})
 hl.window_rule({ match = { tag = "game-emulator" }, nearest_neighbor = true, content = "game"})
 hl.window_rule({ match = { tag = "media" }, idle_inhibit = "focus", content = "video"})
 hl.window_rule({ match = { tag = "image-viewer" }, idle_inhibit = "focus", content = "photo"})
 hl.window_rule({ match = { tag = "creative-media" }, render_unfocused = true, })
-hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, center = true, persistent_size = true})
+hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, move = true_center, persistent_size = true})
 hl.window_rule({ match = { class = "^(steamwebhelper)$" }, group = "barred", }) -- Do not automatically group into the focused unlocked group.
 hl.window_rule({ match = { class = "^(Ibus-ui-gtk3)$" }, no_focus = true, no_follow_mouse = true})
 hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize", }) -- Suppress maximize events on all window
 hl.window_rule({ match = { class = "^(cs2)$" }, immediate = true, }) -- forces allow tearing
 hl.window_rule({ match = { class = "^(pinentry-.*)$" }, stay_focused = true, })
-hl.window_rule({ match = { modal = true }, float = true, center = true, persistent_size = true })
+hl.window_rule({ match = { modal = true }, float = true, move = true_center, persistent_size = true })
 hl.window_rule({ match = { class = "hyprland-run" }, move  = "20 monitor_h-120", float = true, })
 hl.window_rule({ name  = "shimeji", match = { class = "com-group_finity-mascot-Main" }, float = true, no_blur = true, no_focus = true, no_shadow = true, border_size = 0})
 
@@ -82,5 +80,6 @@ hl.window_rule({ name = "smart-gaps-2", match = { float = false, workspace = "n[
 hl.workspace_rule({ workspace = "n[s:window] w[tv1]", gaps_out = { top = 0, right = 0, bottom = 0, left = 0 }, gaps_in = { top = 0, right = 0, bottom = 0, left = 0 } })
 hl.workspace_rule({ workspace = "n[s:window] f[1]", gaps_out = { top = 0, right = 0, bottom = 0, left = 0 }, gaps_in = { top = 0, right = 0, bottom = 0, left = 0 } })
 
--- Per-workspace layouts
+-- workspace regulation
 hl.workspace_rule({ workspace = "1", layout = "scrolling" })
+hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
