@@ -14,6 +14,8 @@ require("env")
 require("general")
 require("decoration")
 require("animation")
+require("input_and_device_inputs")
+require("on_event_and_autostart")
 
 -- Global Variables
 FileManager = "nautilus"
@@ -270,18 +272,6 @@ hl.config({
     },
 })
 
-hl.device({
-    name = "royuan-akko-multi-modes-keyboard-b",
-    repeat_rate = 50,
-    repeat_delay = 500,
-    -- middle_button_emulation = 0,
-})
-
-hl.device({
-    name = "asue1301:00-04f3:3128-touchpad",
-    accel_profile = "custom 0.1678286744 0.000 0.040 0.080 0.129 0.189 0.250 0.310 0.370 0.448 0.540 0.631 0.723 0.815 0.906 0.998 1.089 1.181 1.273 1.364 1.456 1.548 1.639 1.731 1.823 2.012",
-    scroll_points = "custom 0.1678286744 0.000 0.040 0.080 0.129 0.189 0.250 0.310 0.370 0.448 0.540 0.631 0.723 0.815 0.906 0.998 1.089 1.181 1.273 1.364 1.456 1.548 1.639 1.731 1.823 2.012",
-})
 
 -- Mouse-mode submap
 hl.define_submap("mouse-mode", "reset", function()
