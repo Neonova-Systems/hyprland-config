@@ -1,7 +1,13 @@
+-- ▗▄▄▖ ▗▖ ▗▖▗▖   ▗▄▄▄▖ ▗▄▄▖    ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖▗▖ ▗▖▗▖    ▗▄▖▗▄▄▄▖▗▄▄▄▖ ▗▄▖ ▗▖  ▗▖
+-- ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌ ▐▌▐▌   ▐▌   ▐▌ ▐▌▐▌   ▐▌ ▐▌ █    █  ▐▌ ▐▌▐▛▚▖▐▌
+-- ▐▛▀▚▖▐▌ ▐▌▐▌   ▐▛▀▀▘ ▝▀▚▖    ▐▛▀▚▖▐▛▀▀▘▐▌▝▜▌▐▌ ▐▌▐▌   ▐▛▀▜▌ █    █  ▐▌ ▐▌▐▌ ▝▜▌
+-- ▐▌ ▐▌▝▚▄▞▘▐▙▄▄▖▐▙▄▄▖▗▄▄▞▘    ▐▌ ▐▌▐▙▄▄▖▝▚▄▞▘▝▚▄▞▘▐▙▄▄▖▐▌ ▐▌ █  ▗▄█▄▖▝▚▄▞▘▐▌  ▐▌
 -- https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
--- Tags
+-- .------.
+-- | Tags |
+-- '------'
 hl.window_rule({ match = { class = "^(firefox.*|librewolf|qutebrowser|chromium|google-chrome|zen-browser|Brave-browser|thorium|epiphany|ladybird|Mullvad%sBrowser|tor-browser|floorp|waterfox|orion)$" }, tag = "+browser" })
 hl.window_rule({ match = { class = "^(code.*|VSCodium|jetbrain-.+|nvimport|nvim-qt|emacs.*|neovide|sublime_text|Helix|zed|cursor|lapce|eclipse|QtCreator|clion|pycharm|intellij-idea|webstorm|rider|android-studio|arduino)$" }, tag = "+code" })
 hl.window_rule({ match = { class = "^(foot.*|kitty|Alacritty|wezterm|ghostty|rio|tabby|blackbox|gnome-terminal|xfce4-terminal|konsole)$" }, tag = "+terminal" })
@@ -41,22 +47,23 @@ hl.window_rule({ match = { tag = "file-manager" }, workspace = "special"})
 hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
 
 -- Window Rules
-hl.window_rule({ match = { tag = "file-manager"}, float = true, animation = "slide down", center = true, persistent_size = true})
+hl.window_rule({ match = { tag = "file-manager"}, float = true, animation = "slide down", move = {"cursor_x-(window_w*0.5)", "cursor_y-(window_h*0.5)"}, persistent_size = true})
 hl.window_rule({ match = { tag = "terminal" }, no_blur = true, no_shadow = true, })
 hl.window_rule({ match = { tag = "password-manager" }, focus_on_activate = false, no_screen_share = true})
-hl.window_rule({ match = { tag = "utility" }, float = true, center = true, persistent_size = true })
-hl.window_rule({ match = { tag = "game" }, focus_on_activate = true, })
-hl.window_rule({ match = { tag = "game-emulator" }, nearest_neighbor = true, })
+hl.window_rule({ match = { tag = "utility" }, float = true, move = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }, persistent_size = true })
+hl.window_rule({ match = { tag = "game" }, focus_on_activate = true, sync_fullscreen = true, no_shortcuts_inhibit = true, content = "game"})
+hl.window_rule({ match = { tag = "game", xwayland = true }, allows_input = true})
+hl.window_rule({ match = { tag = "game-emulator" }, nearest_neighbor = true, content = "game"})
 hl.window_rule({ match = { tag = "media" }, idle_inhibit = "focus", content = "video"})
+hl.window_rule({ match = { tag = "image-viewer" }, idle_inhibit = "focus", content = "photo"})
 hl.window_rule({ match = { tag = "creative-media" }, render_unfocused = true, })
 hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, center = true, persistent_size = true})
-hl.window_rule({ match = { class = "^(gamescope|steam_app_.*)$" }, sync_fullscreen = true, })
-hl.window_rule({ match = { class = "^(steam|gamescope)$" }, no_shortcuts_inhibit = true, })
 hl.window_rule({ match = { class = "^(steamwebhelper)$" }, group = "barred", }) -- Do not automatically group into the focused unlocked group.
 hl.window_rule({ match = { class = "^(Ibus-ui-gtk3)$" }, no_focus = true, no_follow_mouse = true})
 hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize", }) -- Suppress maximize events on all window
 hl.window_rule({ match = { class = "^(cs2)$" }, immediate = true, }) -- forces allow tearing
 hl.window_rule({ match = { class = "^(pinentry-.*)$" }, stay_focused = true, })
+hl.window_rule({ match = { modal = true }, float = true, center = true, persistent_size = true })
 hl.window_rule({ match = { class = "hyprland-run" }, move  = "20 monitor_h-120", float = true, })
 hl.window_rule({ name  = "shimeji", match = { class = "com-group_finity-mascot-Main" }, float = true, no_blur = true, no_focus = true, no_shadow = true, border_size = 0})
 
@@ -66,7 +73,7 @@ hl.window_rule({ match = { title = "^(.*Sharing Indicator.*)$" }, no_initial_foc
 
 -- Layer rules
 hl.layer_rule({ match = { namespace = "^(workspace-info-osd)$" }, animation = "slide up", })
-hl.layer_rule({ match = { namespace = "^(wofi|vicinae)$" }, no_anim = true, order = 20, dim_around = true})
+hl.layer_rule({ match = { namespace = "^(wofi|vicinae|" .. Launcher .. ")$" }, no_anim = true, order = 33, dim_around = true, blur = true, blur_popups = true, ignore_alpha = 0.35, })
 hl.layer_rule({ match = { namespace = "^(notifications|swaync-control-center)$" }, above_lock = 1, })
 hl.layer_rule({ match = { namespace = "^(notifications)$" }, no_screen_share = true, })
 
