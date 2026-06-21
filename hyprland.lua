@@ -15,6 +15,7 @@ require("general")
 require("decoration")
 require("animation")
 require("input_and_device_inputs")
+require("gestures")
 require("on_event_and_autostart")
 
 -- Global Variables
@@ -36,64 +37,6 @@ if not pcall(require, "reserved-space") then -- connect StellarisCoreUI
 else require("reserved-space") end
 
 hl.config({
-    input = {
-        kb_model = "",
-        kb_layout = "us",
-        kb_variant = "",
-        kb_options = "caps:escape_shifted_capslock",
-        kb_rules = "",
-        kb_file = "",
-        numlock_by_default = false,
-        resolve_binds_by_sym = false,
-        repeat_rate = 50,
-        repeat_delay = 250,
-        sensitivity = 0.0,
-        accel_profile = "",
-        force_no_accel = false,
-        rotation = 0,
-        left_handed = false,
-        scroll_points = "custom 0.000 0.170 0.340 0.510 0.680 0.915 1.171 1.426 1.682 1.938 2.193 2.449 2.704 3.052 3.440 3.829 4.217 4.605 4.993 5.381 5.770 6.158 6.546 6.934 7.323 7.711 8.099 8.487 8.875 9.264 9.652 10.040 10.428 10.817 11.205 11.593 11.981 12.369 12.758 13.560",
-        scroll_method = "",
-        scroll_button = 0,
-        scroll_button_lock = false,
-        scroll_factor = 1.0,
-        natural_scroll = false,
-        follow_mouse = 1,
-        follow_mouse_threshold = 0.0,
-        focus_on_close = 0,
-        mouse_refocus = true,
-        float_switch_override_focus = 2,
-        special_fallthrough = false,
-        off_window_axis_events = 1,
-        emulate_discrete_scroll = 1,
-
-        touchpad = {
-            disable_while_typing = true,
-            natural_scroll = true,
-            scroll_factor = 0.7,
-            middle_button_emulation = true,
-            tap_button_map = "",
-            clickfinger_behavior = false,
-            tap_to_click = true,
-            tap_and_drag = true,
-            drag_lock = 0,
-            flip_x = false,
-            flip_y = false,
-            drag_3fg = 0,
-        },
-
-        touchdevice = {
-            transform = -1,
-            output = "Auto",
-            enabled = true,
-        },
-
-        virtualkeyboard = {
-            share_states = 2,
-            release_pressed_on_close = false,
-        },
-    },
-
     binds = {
         pass_mouse_when_bound = false,
         scroll_event_delay = 300,
@@ -256,20 +199,6 @@ hl.config({
         direction = "right",
     },
 
-    gestures = {
-        workspace_swipe_distance = 300,
-        workspace_swipe_touch = false,
-        workspace_swipe_invert = true,
-        workspace_swipe_touch_invert = false,
-        workspace_swipe_min_speed_to_force = 3,
-        workspace_swipe_cancel_ratio = 0.33,
-        workspace_swipe_create_new = false,
-        workspace_swipe_direction_lock = false,
-        workspace_swipe_direction_lock_threshold = 18,
-        workspace_swipe_forever = false,
-        workspace_swipe_use_r = false,
-        close_max_timeout = 1000,
-    },
 })
 
 
@@ -313,7 +242,6 @@ hl.define_submap("resize", "reset", function()
     hl.bind("escape", hl.dsp.submap("reset"))
     hl.bind("catchall", hl.dsp.submap("reset"))
 end)
-
 
 require("rules_and_regulation")
 require("keybinds_and_gesture")
