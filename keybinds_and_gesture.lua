@@ -48,17 +48,51 @@ hl.bind(mainMod .. " + grave", hl.dsp.focus({ last = true }))
 hl.bind(mainMod .. " + U", hl.dsp.focus({ urgent_or_last = true }))
 hl.bind(mainMod .. " + CONTROL + S", hl.dsp.exec_cmd("uwsm stop"), { description = "Stop session via uwsm" })
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
-hl.bind(mainMod .. " + M", hl.dsp.layout("swapwithmaster"))
-hl.bind(mainMod .. " + return", hl.dsp.layout("focusmaster"))
-hl.bind(mainMod .. " + i", hl.dsp.layout("addmaster"))
-hl.bind(mainMod .. " + d", hl.dsp.layout("removemaster"))
-hl.bind(mainMod .. " + SHIFT + space", hl.dsp.layout("orientationnext"))
-hl.bind(mainMod .. " + j", hl.dsp.layout("cyclenext noloop"))
-hl.bind(mainMod .. " + k", hl.dsp.layout("cycleprev noloop"))
-hl.bind(mainMod .. " + SHIFT + j", hl.dsp.layout("swapnext noloop"))
-hl.bind(mainMod .. " + SHIFT + k", hl.dsp.layout("swapprev noloop"))
-hl.bind(mainMod .. " + H", hl.dsp.layout("mfact -0.05"))
-hl.bind(mainMod .. " + L", hl.dsp.layout("mfact +0.05"))
+
+hl.bind(mainMod .. " + SHIFT + space", functions.layout_bind({
+    master = hl.dsp.layout("orientationnext"),
+    scrolling = hl.dsp.layout("fit visible")
+}))
+hl.bind(mainMod .. " + M", functions.layout_bind({
+    master = hl.dsp.layout("swapwithmaster"),
+    scrolling = hl.dsp.layout("promote")
+}))
+hl.bind(mainMod .. " + SHIFT + J", functions.layout_bind({
+    master = hl.dsp.layout("swapnext noloop"),
+    scrolling = hl.dsp.layout("swapcol l")
+}))
+hl.bind(mainMod .. " + SHIFT + K", functions.layout_bind({
+    master = hl.dsp.layout("swapprev noloop"),
+    scrolling = hl.dsp.layout("swapcol r")
+}))
+hl.bind(mainMod .. " + H", functions.layout_bind({
+    master = hl.dsp.layout("mfact -0.05"),
+    scrolling = hl.dsp.layout("colrezize -0.5")
+}))
+hl.bind(mainMod .. " + L", functions.layout_bind({
+    master = hl.dsp.layout("mfact +0.05"),
+    scrolling = hl.dsp.layout("colrezize +0.5")
+}))
+hl.bind(mainMod .. " + I ", functions.layout_bind({
+    master = hl.dsp.layout("addmaster"),
+    scrolling = hl.dsp.layout("consume")
+}))
+hl.bind(mainMod .. " + D ", functions.layout_bind({
+    master = hl.dsp.layout("removemaster"),
+    scrolling = hl.dsp.layout("expel")
+}))
+hl.bind(mainMod .. " + J", functions.layout_bind({
+    master = hl.dsp.layout("cyclenext noloop"),
+    scrolling = hl.dsp.layout("focus down")
+}))
+hl.bind(mainMod .. " + K", functions.layout_bind({
+    master = hl.dsp.layout("cycleprev noloop"),
+    scrolling = hl.dsp.layout("focus up")
+}))
+hl.bind(mainMod .. " + return", functions.layout_bind({
+    master = hl.dsp.layout("focusmaster"),
+    scrolling = hl.dsp.layout("fit_into_view")
+}))
 hl.bind(mainMod .. " + Z", functions.zoom)
 hl.bind(mainMod .. " + KP_ADD", function() functions.zoom(0.5) end)
 hl.bind(mainMod .. " + minus", function() functions.zoom(-0.5) end)
