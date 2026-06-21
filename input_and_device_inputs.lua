@@ -1,3 +1,4 @@
+
 hl.config({
     input = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#input
         kb_model = "",
@@ -56,6 +57,7 @@ hl.config({
     },
 })
 
+-- https://gist.github.com/fufexan/de2099bc3086f3a6c83d61fc1fcc06c9
 -- Per-device input configuration, see https://wiki.hypr.land/Configuring/Basics/Variables/#per-device-input-config
 hl.device({
     name = "royuan-akko-multi-modes-keyboard-b",

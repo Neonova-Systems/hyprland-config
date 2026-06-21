@@ -2,32 +2,32 @@
 
 hl.config({ -- You are allowed multiple hl.config() invocations, each one will update just what you pass into it
     general = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
-        border_size = 0,
+        border_size = 0,                        -- size of the border around windows
         gaps_in = { top = 4, right = 5, bottom = 4, left = 5 },
-        gaps_out = 10,
-        float_gaps = -1,
-        gaps_workspaces = 0,
+        gaps_out = 10,                          -- gaps between windows and monitor edges, also supports css style gaps (top, right, bottom, left -> 5,10,15,20)
+        float_gaps = -1,                        -- gaps between windows and monitor edges for floating windows, also supports css style gaps (top, right, bottom, left -> 5 10 15 20). -1 means default
+        gaps_workspaces = 0,                    -- gaps between workspaces. Stacks with gaps_out.
         col = {
-            inactive_border = "rgba(00000000)",
-            active_border = "rgba(00000000)",
+            inactive_border = "rgba(00000000)", -- border color for inactive windows
+            active_border = "rgba(00000000)",   -- border color for the active window
             nogroup_border = "rgba(00000000)",
             nogroup_border_active = "rgba(00000000)",
         },
-        layout = "master",
-        no_focus_fallback = false,
-        resize_on_border = true,
-        extend_border_grab_area = 15,
-        hover_icon_on_border = true,
-        allow_tearing = false,
-        resize_corner = 0,
-        modal_parent_blocking = true,
+        layout = "master",                          -- which layout to use. [dwindle/master/scrolling/monocle]
+        no_focus_fallback = false,                  -- if true, will not fall back to the next available window when moving focus in a direction where no window was found
+        resize_on_border = true,                    -- enables resizing windows by clicking and dragging on borders and gaps
+        extend_border_grab_area = 15,               -- extends the area around the border where you can click and drag on, only used when general:resize_on_border is on.
+        hover_icon_on_border = true,                -- show a cursor icon when hovering over borders, only used when general:resize_on_border is on.
+        allow_tearing = false,                      -- master switch for allowing tearing to occur. See the Tearing page. https://wiki.hypr.land/Configuring/Tearing
+        resize_corner = 0,                          -- force floating windows to use a specific corner when being resized (1-4 going clockwise from top left, 0 to disable)
+        modal_parent_blocking = true,               -- whether parent windows of modals will be interactive
         locale = "",
-        snap = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
-            enabled = true,
-            window_gap = 20,
-            monitor_gap = 20,
-            border_overlap = false,
-            respect_gaps = false,
+        snap = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#snap
+            enabled = true, 	        -- enable snapping for floating windows
+            window_gap = 20, 	        -- minimum gap in pixels between windows before snapping
+            monitor_gap = 20, 	        -- minimum gap in pixels between window and monitor edges before snapping
+            border_overlap = false, 	-- if true, windows snap such that only one border's worth of space is between them
+            respect_gaps = false, 	    -- if true, snapping will respect gaps between windows(set in general:gaps_in)
         },
     }
 })
