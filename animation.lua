@@ -39,12 +39,14 @@ hl.config({
 })
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/#curves 
-hl.bezier({ name = "ease", points = {0.25, 0.1, 0.25, 1.0} })
-hl.bezier({ name = "spring", points = {0.34, 1.56, 0.64, 1.0} }) 
-hl.animation({ leaf = "global", enabled = true, speed = 4, bezier = "apple_ease" })
-hl.animation({ leaf = "windows", enabled = true, speed = 4, bezier = "apple_spring", style = "popin 80%" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 5, style = "slidefade" })
-hl.animation({ leaf = "fade", enabled = true, speed = 6, bezier = "apple_ease" })
+hl.curve( "spring", { type = "spring", mass = 1, stiffness = 70, dampening = 10 } )
+hl.curve( "bounce", { type = "spring", mass = 1, stiffness = 50, dampening = 8 } )
+hl.curve( "smooth_ease", { type = "bezier", points = { {0.25, 0.1}, {0.25, 1.0} } } ) -- Fallback
+hl.animation({ leaf = "global", enabled = true, speed = 4, curve = "smooth_ease" })
+hl.animation({ leaf = "windows", enabled = true, speed = 4, curve = "spring", style = "popin 80%" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 5, curve = "bounce", style = "slidefade" })
+
+hl.animation({ leaf = "fade", enabled = true, speed = 6, curve = "smooth_ease" })
 hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 4 })
 hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4 })
 hl.animation({ leaf = "fadeDim", enabled = true, speed = 3 })
