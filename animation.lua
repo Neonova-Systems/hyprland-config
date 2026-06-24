@@ -47,6 +47,6 @@ hl.animation({ leaf = "windows", enabled = true, speed = 4, spring = "spring", s
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, spring = "bounce", style = "slidefade" })
 
 hl.animation({ leaf = "fade", enabled = true, speed = 6, bezier = "smooth_ease" })
-hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 4 })
-hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4 })
-hl.animation({ leaf = "fadeDim", enabled = true, speed = 3 })
+hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 4, bezier = "smooth_ease" })
+hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4, bezier = "smooth_ease" })
+hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "smooth_ease" })
