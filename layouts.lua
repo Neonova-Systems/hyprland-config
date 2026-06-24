@@ -16,7 +16,7 @@ hl.config({
         smart_resizing = true, 	                -- if enabled, resizing direction will be determined by the mouse’s position on the window (nearest to which corner). Else, it is based on the window’s tiling position.
         drop_at_cursor = true, 	                -- when enabled, dragging and dropping windows will put them at the cursor position. Otherwise, when dropped at the stack side, they will go to the top/bottom of the stack depending on new_on_top.
         always_keep_position = false, 	        -- whether to keep the master window in its configured position when there are no slave windows
-        focus_master_on_close = false 	        -- whether to focus the master window when the focused window is closed
+        -- focus_master_on_close = false 	        -- whether to focus the master window when the focused window is closed
     },
     dwindle = { -- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/#config
         force_split = 0,

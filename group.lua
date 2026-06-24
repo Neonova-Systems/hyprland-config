@@ -9,10 +9,10 @@ hl.config({
         merge_floated_into_tiled_on_groupbar = false,   -- whether dragging a floating window into a tiled window groupbar will merge them
         group_on_movetoworkspace = false, 	            -- whether using movetoworkspace[silent] will merge the window into the workspace’s solitary unlocked group
         col = {
-            border_active = "rgba(0x66ffff00)", 	            -- active group border color
-            border_inactive = "rgba(0x66777700)", 	            -- inactive (out of focus) group border color
-            border_locked_active = "rgba(0x66ff5500)", 	        -- active locked group border color
-            border_locked_inactive = "rgba(0x66775500)", 	    -- inactive locked group border color
+            border_active = "rgba(66ffff00)", 	            -- active group border color
+            border_inactive = "rgba(66777700)", 	            -- inactive (out of focus) group border color
+            border_locked_active = "rgba(66ff5500)", 	        -- active locked group border color
+            border_locked_inactive = "rgba(66775500)", 	    -- inactive locked group border color
         },
         groupbar = { -- https://wiki.hypr.land/Configuring/Basics/Variables/#groupbar
             enabled = true,                         -- enables groupbars
@@ -41,10 +41,10 @@ hl.config({
             text_color_locked_active = "", 	        -- color for the active window's title in a locked group (if unset, defaults to text_color)
             text_color_locked_inactive = "",        -- color for inactive windows’ titles in locked groups (if unset, defaults to text_color_inactive)
             col = {
-                active = 0x66ffff00,                -- active group bar background color
-                inactive = 0x66777700,              -- inactive (out of focus) group bar background color
-                locked_active = 0x66ff5500, 	    -- active locked group bar background color
-                locked_inactive = 0x66775500, 	    -- inactive locked group bar background color
+                active = "rgba(66ffff00)",                -- active group bar background color
+                inactive = "rgba(66777700)",              -- inactive (out of focus) group bar background color
+                locked_active = "rgba(66ff5500)", 	    -- active locked group bar background color
+                locked_inactive = "rgba(66775500)", 	    -- inactive locked group bar background color
             },
             gaps_in = 2, 	                        -- gap size between gradients
             gaps_out = 2, 	                        -- gap size between gradients and window
