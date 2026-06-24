@@ -43,10 +43,11 @@ hl.curve( "spring", { type = "spring", mass = 1, stiffness = 70, dampening = 14 
 hl.curve( "bounce", { type = "spring", mass = 1, stiffness = 100, dampening = 20 } )
 hl.curve( "smooth_ease", { type = "bezier", points = { {0.25, 0.1}, {0.25, 1.0} } } ) -- Fallback
 hl.animation({ leaf = "global", enabled = true, speed = 4, bezier = "smooth_ease" })
-hl.animation({ leaf = "windows", enabled = true, speed = 3, spring = "spring", style = "popin 80%" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, spring = "spring", style = "popin 80%" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 3, spring = "bounce", style = "slidefade" })
 
 hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "smooth_ease" })
+hl.animation({ leaf = "fadeOut", enabled = true, speed = 3, bezier = "smooth_ease" })
 hl.animation({ leaf = "fadeSwitch", enabled = false, speed = 4, bezier = "smooth_ease" })
 hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4, bezier = "smooth_ease" })
 hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "smooth_ease" })
