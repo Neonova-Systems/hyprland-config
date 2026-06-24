@@ -11,7 +11,7 @@
 hl.window_rule({ match = { class = "^(firefox.*|librewolf|qutebrowser|chromium|google-chrome|zen-browser|Brave-browser|thorium|epiphany|ladybird|Mullvad%sBrowser|tor-browser|floorp|waterfox|orion)$" }, tag = "+browser" })
 hl.window_rule({ match = { class = "^(code.*|VSCodium|jetbrain-.+|nvimport|nvim-qt|emacs.*|neovide|sublime_text|Helix|zed|cursor|lapce|eclipse|QtCreator|clion|pycharm|intellij-idea|webstorm|rider|android-studio|arduino)$" }, tag = "+code" })
 hl.window_rule({ match = { class = "^(foot.*|kitty|Alacritty|wezterm|ghostty|rio|tabby|blackbox|gnome-terminal|xfce4-terminal|konsole)$" }, tag = "+terminal" })
-hl.window_rule({ match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl|wine|wine64|bottles|proton)$" }, tag = "+game" })
+hl.window_rule({ match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl|wine|wine64|bottles|proton|org.vinegarhq.Sober)$" }, tag = "+game" })
 hl.window_rule({ match = { class = "^(retroarch|mGBA|Snes9x|PCSX2|dolphin-emu|yuzu|ryujinx|mgba.*|citra|rpcs3|duckstation|ppsspp|minecraft.*|PrismLauncher|flycast|xemu|vita3k)$" }, tag = "+game-emulator" })
 hl.window_rule({ match = { class = "^(mpv|vlc|celluloid|clapper|haruna|spotify|audacious|rhythmbox|amberol|io.github.CelluloidPlayer|plex.*|jellyfin.*|mpd|ncmpcpp|ncspot|tauon)$" }, tag = "+media" })
 hl.window_rule({ match = { class = "^(obs|com.obsproject.Studio|Gimp.*|krita|Inkscape|blender|darktable|kdenlive|audacity|resolve|freecad|reaper|lmms|ardour|openscad|librecad|bambu-studio|prusaslicer)$" }, tag = "+creative-media" })
