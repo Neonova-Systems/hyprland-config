@@ -39,7 +39,7 @@ hl.config({
 })
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/#curves 
-hl.curve( "spring", { type = "spring", mass = 1, stiffness = 70, dampening = 10 } )
+hl.curve( "spring", { type = "spring", mass = 1, stiffness = 70, dampening = 14 } )
 hl.curve( "bounce", { type = "spring", mass = 1, stiffness = 100, dampening = 20 } )
 hl.curve( "smooth_ease", { type = "bezier", points = { {0.25, 0.1}, {0.25, 1.0} } } ) -- Fallback
 hl.animation({ leaf = "global", enabled = true, speed = 4, bezier = "smooth_ease" })
