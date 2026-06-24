@@ -37,13 +37,13 @@ hl.config({
             round_only_edges = true, 	            -- round only the indicator edges of the entire groupbar
             gradient_round_only_edges = true, 	    -- round only the gradient edges of the entire groupbar
             text_color = 0xffffffff, 	            -- color for window titles in the groupbar
-            text_color_inactive = "", 	            -- color for inactive windows’ titles in the groupbar (if unset, defaults to text_color)
-            text_color_locked_active = "", 	        -- color for the active window's title in a locked group (if unset, defaults to text_color)
-            text_color_locked_inactive = "",        -- color for inactive windows’ titles in locked groups (if unset, defaults to text_color_inactive)
+            text_color_inactive = "[[empty]]", 	            -- color for inactive windows’ titles in the groupbar (if unset, defaults to text_color)
+            text_color_locked_active = "[[empty]]", 	        -- color for the active window's title in a locked group (if unset, defaults to text_color)
+            text_color_locked_inactive = "[[empty]]",        -- color for inactive windows’ titles in locked groups (if unset, defaults to text_color_inactive)
             col = {
                 active = "rgba(66ffff00)",                -- active group bar background color
                 inactive = "rgba(66777700)",              -- inactive (out of focus) group bar background color
-                locked_active = "rgba(66ff5500)", 	    -- active locked group bar background color
+                locked_active = "rgba(66ff5500)", 	        -- active locked group bar background color
                 locked_inactive = "rgba(66775500)", 	    -- inactive locked group bar background color
             },
             gaps_in = 2, 	                        -- gap size between gradients
