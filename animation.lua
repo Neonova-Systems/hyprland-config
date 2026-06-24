@@ -49,7 +49,7 @@ hl.animation({ leaf = "windowsOut", enabled = true, speed = 10, bezier = "easeIn
 hl.animation({ leaf = "workspaces", enabled = true, speed = 3, spring = "bounce", style = "slidefade" })
 
 hl.animation({ leaf = "fade", enabled = true, speed = 5, bezier = "smooth_ease" })
--- hl.animation({ leaf = "fadeOut", enabled = true, speed = 5, bezier = "easeInOut" })
+hl.animation({ leaf = "fadeOut", enabled = true, speed = 5, bezier = "easeInOut" })
 hl.animation({ leaf = "fadeSwitch", enabled = false, speed = 4, bezier = "smooth_ease" })
 hl.animation({ leaf = "fadeShadow", enabled = true, speed = 4, bezier = "smooth_ease" })
 hl.animation({ leaf = "fadeDim", enabled = true, speed = 3, bezier = "smooth_ease" })
