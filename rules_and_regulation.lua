@@ -155,7 +155,7 @@ hl.window_rule({
 -- Layer rules
 hl.layer_rule({ match = { namespace = "^(workspace-info-osd)$" }, animation = "slide up", })
 hl.layer_rule({ match = { namespace = "^(wofi|vicinae|" .. Launcher .. ")$" }, no_anim = true, order = 33, dim_around = true, blur = true, blur_popups = true, ignore_alpha = 0.35, })
-hl.layer_rule({ match = { namespace = "^(top-right-corner|bottom-right-corner|dashboard)$" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "^(top-left-corner|bottom-left-corner|top-right-corner|bottom-right-corner|dashboard)$" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "^(notifications|swaync-control-center)$" }, above_lock = 1, })
 hl.layer_rule({ match = { namespace = "^(notifications)$" }, no_screen_share = true, })
 
