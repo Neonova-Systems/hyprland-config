@@ -8,70 +8,154 @@
 -- .------.
 -- | Tags |
 -- '------'
-hl.window_rule({ match = { class = "^(firefox.*|librewolf|qutebrowser|chromium|google-chrome|zen-browser|Brave-browser|thorium|epiphany|ladybird|Mullvad%sBrowser|tor-browser|floorp|waterfox|orion)$" }, tag = "+browser" })
-hl.window_rule({ match = { class = "^(code.*|VSCodium|jetbrain-.+|nvimport|nvim-qt|emacs.*|neovide|sublime_text|Helix|zed|cursor|lapce|eclipse|QtCreator|clion|pycharm|intellij-idea|webstorm|rider|android-studio|arduino)$" }, tag = "+code" })
-hl.window_rule({ match = { class = "^(foot.*|kitty|Alacritty|wezterm|ghostty|rio|tabby|blackbox|gnome-terminal|xfce4-terminal|konsole)$" }, tag = "+terminal" })
-hl.window_rule({ match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl|wine|wine64|bottles|proton|org.vinegarhq.Sober)$" }, tag = "+game" })
-hl.window_rule({ match = { class = "^(retroarch|mGBA|Snes9x|PCSX2|dolphin-emu|yuzu|ryujinx|mgba.*|citra|rpcs3|duckstation|ppsspp|minecraft.*|PrismLauncher|flycast|xemu|vita3k)$" }, tag = "+game-emulator" })
-hl.window_rule({ match = { class = "^(mpv|vlc|celluloid|clapper|haruna|spotify|audacious|rhythmbox|amberol|io.github.CelluloidPlayer|plex.*|jellyfin.*|mpd|ncmpcpp|ncspot|tauon)$" }, tag = "+media" })
-hl.window_rule({ match = { class = "^(obs|com.obsproject.Studio|Gimp.*|krita|Inkscape|blender|darktable|kdenlive|audacity|resolve|freecad|reaper|lmms|ardour|openscad|librecad|bambu-studio|prusaslicer)$" }, tag = "+creative-media" })
-hl.window_rule({ match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.telegram.desktop|Element|signal|whatsapp.*|teams|zoom|matrix-.+|thunderbird|evolution|revolt|matrix-ext|cinny|fractal)$" }, tag = "+communication" })
-hl.window_rule({ match = { class = "^(thunar|nemo|pcmanfm.*|org.gnome.Nautilus|dolphin|yazi|ranger|doublecmd|krusader|file-roller|ark|peazip)$" }, tag = "+file-manager" })
-hl.window_rule({ match = { class = "^(KeePassXC|Bitwarden|1Password|proton-pass|seahorse|gnome-passwords.*|keepass|kleopatra)$" }, tag = "+password-manager" })
-hl.window_rule({ match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg|loupe|qview|gwenview|digikam|viewnior|shotwell)$" }, tag = "+image-viewer" })
-hl.window_rule({ match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager|corectrl|gparted.*|htop|btop|nvtop|wihotspot|hyprland-share-picker)$" }, tag = "+utility" })
-hl.window_rule({ match = { class = "^(libreoffice-.+|soffice|wps|et|wpp|okular|org.gnome.Papers|zathura|evince|pdfarranger|sioyek)$" }, tag = "+office-docs" })
+hl.window_rule({
+    match = { class = "^(firefox.*|librewolf|qutebrowser|chromium|google-chrome|zen-browser|Brave-browser|thorium|epiphany|ladybird|Mullvad%sBrowser|tor-browser|floorp|waterfox|orion)$" },
+    tag =
+    "+browser"
+})
+hl.window_rule({
+    match = { class = "^(code.*|VSCodium|jetbrain-.+|nvimport|nvim-qt|emacs.*|neovide|sublime_text|Helix|zed|cursor|lapce|eclipse|QtCreator|clion|pycharm|intellij-idea|webstorm|rider|android-studio|arduino)$" },
+    tag =
+    "+code"
+})
+hl.window_rule({
+    match = { class = "^(foot.*|kitty|Alacritty|wezterm|ghostty|rio|tabby|blackbox|gnome-terminal|xfce4-terminal|konsole)$" },
+    tag =
+    "+terminal"
+})
+hl.window_rule({
+    match = { class = "^(steam|lutris|heroic|gamescope|com.heroicgameslauncher.hgl|wine|wine64|bottles|proton|org.vinegarhq.Sober)$" },
+    tag =
+    "+game"
+})
+hl.window_rule({
+    match = { class = "^(retroarch|mGBA|Snes9x|PCSX2|dolphin-emu|yuzu|ryujinx|mgba.*|citra|rpcs3|duckstation|ppsspp|minecraft.*|PrismLauncher|flycast|xemu|vita3k)$" },
+    tag =
+    "+game-emulator"
+})
+hl.window_rule({
+    match = { class = "^(mpv|vlc|celluloid|clapper|haruna|spotify|audacious|rhythmbox|amberol|io.github.CelluloidPlayer|plex.*|jellyfin.*|mpd|ncmpcpp|ncspot|tauon)$" },
+    tag =
+    "+media"
+})
+hl.window_rule({
+    match = { class = "^(obs|com.obsproject.Studio|Gimp.*|krita|Inkscape|blender|darktable|kdenlive|audacity|resolve|freecad|reaper|lmms|ardour|openscad|librecad|bambu-studio|prusaslicer)$" },
+    tag =
+    "+creative-media"
+})
+hl.window_rule({
+    match = { class = "^(discord|vesktop|Slack|TelegramDesktop|org.telegram.desktop|Element|signal|whatsapp.*|teams|zoom|matrix-.+|thunderbird|evolution|revolt|matrix-ext|cinny|fractal)$" },
+    tag =
+    "+communication"
+})
+hl.window_rule({
+    match = { class = "^(thunar|nemo|pcmanfm.*|org.gnome.Nautilus|dolphin|yazi|ranger|doublecmd|krusader|file-roller|ark|peazip)$" },
+    tag =
+    "+file-manager"
+})
+hl.window_rule({
+    match = { class = "^(KeePassXC|Bitwarden|1Password|proton-pass|seahorse|gnome-passwords.*|keepass|kleopatra)$" },
+    tag =
+    "+password-manager"
+})
+hl.window_rule({
+    match = { class = "^(imv|nsxiv|feh|org.gnome.eog|Sxiv|swayimg|loupe|qview|gwenview|digikam|viewnior|shotwell)$" },
+    tag =
+    "+image-viewer"
+})
+hl.window_rule({
+    match = { class = "^(qcalculate-gtk|org.gnome.Calculator|nm-connection-editor|pinentry-.+|pavucontrol|blueman-manager|corectrl|gparted.*|htop|btop|nvtop|wihotspot|hyprland-share-picker)$" },
+    tag =
+    "+utility"
+})
+hl.window_rule({
+    match = { class = "^(libreoffice-.+|soffice|wps|et|wpp|okular|org.gnome.Papers|zathura|evince|pdfarranger|sioyek)$" },
+    tag =
+    "+office-docs"
+})
 hl.window_rule({ match = { class = "^(Waydroid|waydroid..*|com.android..*)$" }, tag = "+android-env" })
-hl.window_rule({ match = { class = "^(virt-manager|virt-viewer|qemu.*|VirtualBox.*|proxmox.*|vmware.*)$" }, tag = "+virtualization" })
-hl.window_rule({ match = { class = "^(wireshark|burpsuite|owasp-zap|ghidra|ida.*|radare2|iaito|maltego|nmap|remmina|rustdesk|anydesk|cutter|gns3|packettracer|ettercap|aircrack-ng|hashcat|john|nikto|dirb|gobuster|wpscan|hydra|metasploit.*|sqlmap|armitage|cobaltstrike|ncat|zenmap|bloodhound|insomnia|postman|bruno|hoppscotch)$" }, tag = "+hacking" })
-hl.window_rule({ match = { class = "^(dbeaver|beekeeper-companion|pgadmin.*|mongodb-compass|mysql-workbench|redisinsight)$" }, tag = "+database" })
+hl.window_rule({
+    match = { class = "^(virt-manager|virt-viewer|qemu.*|VirtualBox.*|proxmox.*|vmware.*)$" },
+    tag =
+    "+virtualization"
+})
+hl.window_rule({
+    match = { class = "^(wireshark|burpsuite|owasp-zap|ghidra|ida.*|radare2|iaito|maltego|nmap|remmina|rustdesk|anydesk|cutter|gns3|packettracer|ettercap|aircrack-ng|hashcat|john|nikto|dirb|gobuster|wpscan|hydra|metasploit.*|sqlmap|armitage|cobaltstrike|ncat|zenmap|bloodhound|insomnia|postman|bruno|hoppscotch)$" },
+    tag =
+    "+hacking"
+})
+hl.window_rule({
+    match = { class = "^(dbeaver|beekeeper-companion|pgadmin.*|mongodb-compass|mysql-workbench|redisinsight)$" },
+    tag =
+    "+database"
+})
 hl.window_rule({ match = { class = "^(electrum|feather|monero-wallet-gui|metamask|ledger-live)$" }, tag = "+crypto" })
 hl.window_rule({ match = { class = "^(lmstudio|chatbox|ollama.*|jan|metatube)$" }, tag = "+ai-tools" })
-hl.window_rule({ match = { class = "^(rstudio|octave.*|scilab|mathematica|matlab|paraview|qgis.*|gnhour|stellarium|avogadro|vmd|sigrok.*|pulseview|saleae.*)$" }, tag = "+scientific" })
+hl.window_rule({
+    match = { class = "^(rstudio|octave.*|scilab|mathematica|matlab|paraview|qgis.*|gnhour|stellarium|avogadro|vmd|sigrok.*|pulseview|saleae.*)$" },
+    tag =
+    "+scientific"
+})
 hl.window_rule({ match = { class = "^(gqrx|sdrangel|cubicsdr|chirp|fldigi|dump1090|urh)$" }, tag = "+sdr-radio" })
 hl.window_rule({ match = { class = "^(kicad|fritzing|eagle|easyeda|librepcb|gtkwave|verilator)$" }, tag = "+hardware-eda" })
 hl.window_rule({ match = { xdg_tag = ".+" }, tag = "+has-xdgtag" })
 
 -- Workspace Routing
-hl.window_rule({ match = { tag = "browser" }, workspace = "1"})
-hl.window_rule({ match = { tag = "code" }, workspace = "2"})
-hl.window_rule({ match = { tag = "terminal" }, workspace = "3"})
-hl.window_rule({ match = { tag = "game" }, workspace = "7"})
-hl.window_rule({ match = { tag = "game-emulator" }, workspace = "7"})
-hl.window_rule({ match = { tag = "communication" }, workspace = "5"})
-hl.window_rule({ match = { tag = "creative-media" }, workspace = "9"})
-hl.window_rule({ match = { tag = "virtualization" }, workspace = "8"})
-hl.window_rule({ match = { tag = "file-manager" }, workspace = "special"})
+hl.window_rule({ match = { tag = "browser" }, workspace = "1" })
+hl.window_rule({ match = { tag = "code" }, workspace = "2" })
+hl.window_rule({ match = { tag = "terminal" }, workspace = "3" })
+hl.window_rule({ match = { tag = "game" }, workspace = "7" })
+hl.window_rule({ match = { tag = "game-emulator" }, workspace = "7" })
+hl.window_rule({ match = { tag = "communication" }, workspace = "5" })
+hl.window_rule({ match = { tag = "creative-media" }, workspace = "9" })
+hl.window_rule({ match = { tag = "virtualization" }, workspace = "8" })
+hl.window_rule({ match = { tag = "file-manager" }, workspace = "special" })
 
 -- Window Rules
 local true_center = { "(monitor_w - window_w) / 2", "(monitor_h - window_h) / 2" }
-hl.window_rule({ match = { tag = "file-manager"}, float = true, animation = "slide down", move = {"cursor_x-(window_w*0.5)", "cursor_y-(window_h*0.5)"}, persistent_size = true})
+hl.window_rule({ match = { tag = "file-manager" }, float = true, animation = "slide down", move = { "cursor_x-(window_w*0.5)", "cursor_y-(window_h*0.5)" }, persistent_size = true })
 hl.window_rule({ match = { tag = "terminal" }, no_blur = true, no_shadow = true, })
-hl.window_rule({ match = { tag = "password-manager" }, focus_on_activate = false, no_screen_share = true})
+hl.window_rule({ match = { tag = "password-manager" }, focus_on_activate = false, no_screen_share = true })
 hl.window_rule({ match = { tag = "utility" }, float = true, move = true_center, persistent_size = true })
-hl.window_rule({ match = { tag = "game" }, focus_on_activate = true, sync_fullscreen = true, no_shortcuts_inhibit = true, content = "game"})
-hl.window_rule({ match = { tag = "game", xwayland = true }, allows_input = true})
-hl.window_rule({ match = { tag = "game-emulator" }, nearest_neighbor = true, content = "game"})
-hl.window_rule({ match = { tag = "media" }, idle_inhibit = "focus", content = "video"})
-hl.window_rule({ match = { tag = "image-viewer" }, idle_inhibit = "focus", content = "photo"})
+hl.window_rule({
+    match = { tag = "game" },
+    focus_on_activate = true,
+    sync_fullscreen = true,
+    no_shortcuts_inhibit = true,
+    content =
+    "game"
+})
+hl.window_rule({ match = { tag = "game", xwayland = true }, allows_input = true })
+hl.window_rule({ match = { tag = "game-emulator" }, nearest_neighbor = true, content = "game" })
+hl.window_rule({ match = { tag = "media" }, idle_inhibit = "focus", content = "video" })
+hl.window_rule({ match = { tag = "image-viewer" }, idle_inhibit = "focus", content = "photo" })
 hl.window_rule({ match = { tag = "creative-media" }, render_unfocused = true, })
-hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, move = true_center, persistent_size = true})
+hl.window_rule({ match = { tag = "image-viewer" }, keep_aspect_ratio = true, float = true, move = true_center, persistent_size = true })
 hl.window_rule({ match = { class = "^(steamwebhelper)$" }, group = "barred", }) -- Do not automatically group into the focused unlocked group.
-hl.window_rule({ match = { class = "^(Ibus-ui-gtk3)$" }, no_focus = true, no_follow_mouse = true})
-hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize", }) -- Suppress maximize events on all window
-hl.window_rule({ match = { class = "^(cs2)$" }, immediate = true, }) -- forces allow tearing
+hl.window_rule({ match = { class = "^(Ibus-ui-gtk3)$" }, no_focus = true, no_follow_mouse = true })
+hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize", })      -- Suppress maximize events on all window
+hl.window_rule({ match = { class = "^(cs2)$" }, immediate = true, })            -- forces allow tearing
 hl.window_rule({ match = { class = "^(pinentry-.*)$" }, stay_focused = true, })
 hl.window_rule({ match = { modal = true }, float = true, move = true_center, persistent_size = true })
-hl.window_rule({ match = { class = "hyprland-run" }, move  = "20 monitor_h-120", float = true, })
-hl.window_rule({ name  = "shimeji", match = { class = "com-group_finity-mascot-Main" }, float = true, no_blur = true, no_focus = true, no_shadow = true, border_size = 0})
+hl.window_rule({ match = { class = "hyprland-run" }, move = "20 monitor_h-120", float = true, })
+hl.window_rule({ name = "shimeji", match = { class = "com-group_finity-mascot-Main" }, float = true, no_blur = true, no_focus = true, no_shadow = true, border_size = 0 })
 
 -- Picture-in-Picture and Sharing indicator rules
-hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true, pin = true})
-hl.window_rule({ match = { title = "^(.*Sharing Indicator.*)$" }, no_initial_focus = true, float = true, move = "0 0", no_anim = true, suppress_event = "activa activatefocuste"})
+hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true, pin = true })
+hl.window_rule({
+    match = { title = "^(.*Sharing Indicator.*)$" },
+    no_initial_focus = true,
+    float = true,
+    move = "0 0",
+    no_anim = true,
+    suppress_event =
+    "activa activatefocuste"
+})
 
 -- Layer rules
 hl.layer_rule({ match = { namespace = "^(workspace-info-osd)$" }, animation = "slide up", })
 hl.layer_rule({ match = { namespace = "^(wofi|vicinae|" .. Launcher .. ")$" }, no_anim = true, order = 33, dim_around = true, blur = true, blur_popups = true, ignore_alpha = 0.35, })
+hl.layer_rule({ match = { namespace = "^(*-corner|dashboard)$" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "^(notifications|swaync-control-center)$" }, above_lock = 1, })
 hl.layer_rule({ match = { namespace = "^(notifications)$" }, no_screen_share = true, })
 
@@ -83,3 +167,4 @@ hl.workspace_rule({ workspace = "n[s:window] f[1]", gaps_out = { top = 0, right 
 -- workspace regulation
 hl.workspace_rule({ workspace = "1", layout = "scrolling" })
 hl.workspace_rule({ workspace = "special", on_created_empty = "thunar" })
+
