@@ -131,7 +131,7 @@ hl.bind(mainMod .. " + Z", functions.zoom)
 hl.bind(mainMod .. " + equal", function() functions.zoom(0.5) end)
 hl.bind(mainMod .. " + minus", function() functions.zoom(-0.5) end)
 hl.bind(mainMod .. " + F1",
-    function()                         -- Hotkey to toggle "game mode" which disables animations, gaps and window decorations for a more immersive gaming experience. It does this by checking if animations are currently disabled and if so it reloads the config to restore everything, otherwise it applies the "game mode" settings.
+    function() -- Hotkey to toggle "game mode" which disables animations, gaps and window decorations for a more immersive gaming experience. It does this by checking if animations are currently disabled and if so it reloads the config to restore everything, otherwise it applies the "game mode" settings.
         local game_mode = (hl.get_config("animations.enabled") == false)
         if game_mode then
             hl.exec_cmd("hyprctl reload")
@@ -140,7 +140,7 @@ hl.bind(mainMod .. " + F1",
         hl.config({
             general = {
                 gaps_in = 0,
-                gaps_out = 0,          -- Disable gaps
+                gaps_out = 0, -- Disable gaps
                 border_size = 0,
             },
 
@@ -157,7 +157,7 @@ hl.bind(mainMod .. " + F1",
         })
     end)
 hl.bind(mainMod .. " + X",
-    function()                         -- Minimize window using a special workspace as a scratchpad since Hyprland does not have native minimize functionality
+    function() -- Minimize window using a special workspace as a scratchpad since Hyprland does not have native minimize functionality
         hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
         hl.dispatch(hl.dsp.window.move({ workspace = "+0" }))
         hl.dispatch(hl.dsp.workspace.toggle_special("minimize"))
@@ -214,7 +214,7 @@ hl.bind(mainMod .. " + XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { long
 hl.bind(mainMod .. " + XF86AudioNext", hl.dsp.exec_cmd("playerctl position +5"))
 hl.bind(mainMod .. " + XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { long_press = true })
 hl.bind(mainMod .. " + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position -5"))
-hl.bind(mainMod .. " + XF86Sleep", hl.dsp.exec_cmd("systemctl sleep"))
+hl.bind(mainMod .. " + XF86Sleep", hl.dsp.exec_cmd("systemctl suspend"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -277,4 +277,3 @@ hl.define_submap("resize", "reset", function()
     hl.bind("escape", hl.dsp.submap("reset"))
     hl.bind("catchall", hl.dsp.submap("reset"))
 end)
-
