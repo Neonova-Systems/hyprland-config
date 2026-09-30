@@ -214,7 +214,7 @@ hl.bind(mainMod .. " + XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { long
 hl.bind(mainMod .. " + XF86AudioNext", hl.dsp.exec_cmd("playerctl position +5"))
 hl.bind(mainMod .. " + XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { long_press = true })
 hl.bind(mainMod .. " + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position -5"))
-hl.bind(mainMod .. " + XF86Sleep", hl.dsp.exec_cmd("systemctl suspend"))
+hl.bind("XF86Sleep", hl.dsp.exec_cmd("systemctl suspend"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
