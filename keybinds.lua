@@ -36,7 +36,7 @@ hl.bind(mainMod .. " + Insert", hl.dsp.exec_cmd(zsh .. " \"bookmarks-grabber\"")
 hl.bind(mainMod .. " + CONTROL + B", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch browser"))
 hl.bind(mainMod .. " + CONTROL + E", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch editor"))
 hl.bind(mainMod .. " + CONTROL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch terminal"))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-launch terminal-sessionizer"), { description = "Focus kitty or launch with sessionizer" })
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("~/.config/hypr/scripts/kitty-focus-launch"), { description = "Focus kitty or launch with sessionizer" })
 hl.bind(mainMod .. " + Tab", function()
     hl.dispatch(hl.dsp.window.cycle_next())   -- Change focus to another window
     hl.dispatch(hl.dsp.window.bring_to_top()) -- Bring it to the top
@@ -112,7 +112,7 @@ hl.bind(mainMod .. " + I ", functions.layout_bind({
     master = hl.dsp.layout("addmaster"),
     scrolling = hl.dsp.layout("consume")
 }))
-hl.bind(mainMod .. " + D ", functions.layout_bind({
+hl.bind(mainMod .. " + SHIFT + D ", functions.layout_bind({
     master = hl.dsp.layout("removemaster"),
     scrolling = hl.dsp.layout("expel")
 }))
