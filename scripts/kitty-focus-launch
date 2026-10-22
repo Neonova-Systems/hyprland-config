@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Focus a running kitty window, switching workspace if needed.
+# If none is running, launch kitty and run the project sessionizer in it.
+#
+# Override the sessionizer target with KITTY_SESSIONIZER=<path>.
+# Override the window class with KITTY_CLASS=<regex>.
+
+if ! command -v hyprctl >/dev/null 2>&1; then
+    echo "hyprctl not found" >&2
+    exit 1
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    echo "jq not found" >&2
+    exit 1
+fi
+
+kitty_class="${KITTY_CLASS:-^kitty$}"
+sessionizer="${KITTY_SESSIONIZER:-$HOME/.config/kitty/kitty-sessionizer}"
+
+# Focus by address: works across workspaces and avoids regex parsing quirks.
+address=$(hyprctl clients -j \
+    | jq -r --arg re "$kitty_class" '.[] | select((.class // "") | test($re; "i")) | .address' \
+    | head -n1)
+
+if [[ -n "$address" ]]; then
+    # Dispatch with the Lua form: this Hyprland parses `hyprctl dispatch` as Lua,
+    # so the legacy `focuswindow class:...` argument form fails.
+    hyprctl dispatch "hl.dsp.focus({ window = \"address:$address\" })" >/dev/null
+    exit 0
+fi
+
+if ! command -v kitty >/dev/null 2>&1; then
+    echo "kitty not found" >&2
+    exit 1
+fi
+
+# The sessionizer picker needs a TTY, so run it inside the new kitty window.
+if [[ -x "$sessionizer" ]]; then
+    exec kitty -e "$sessionizer"
+fi
+
+exec kitty
