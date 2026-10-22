@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Focus a matching app window if present; otherwise launch a fallback binary.
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 {browser|editor|terminal}" >&2
+    echo "Usage: $0 {browser|editor|terminal|terminal-sessionizer}" >&2
     exit 2
 fi
 
@@ -34,6 +34,10 @@ case "$kind" in
         class_regex='^(foot|kitty|Alacritty)$'
         launch_cmds=(foot kitty alacritty)
         ;;
+    terminal-sessionizer)
+        class_regex='^(kitty)$'
+        launch_cmds=(kitty)
+        ;;
     *)
         echo "Unknown target: $kind" >&2
         exit 2
@@ -43,6 +47,15 @@ esac
 if hyprctl clients -j | jq -e --arg re "$class_regex" '.[] | select((.class // "") | test($re; "i"))' >/dev/null; then
     hyprctl dispatch focuswindow "class:$class_regex" >/dev/null
     exit 0
+fi
+
+# Sessionizer kind: launch kitty and auto-run the project sessionizer inside it.
+# The picker needs a TTY, so it must start in the terminal, not in this process.
+if [[ "$kind" == "terminal-sessionizer" ]]; then
+    sessionizer="$HOME/.config/kitty/kitty-sessionizer"
+    if command -v kitty >/dev/null 2>&1 && [[ -x "$sessionizer" ]]; then
+        exec kitty -e "$sessionizer"
+    fi
 fi
 
 for cmd in "${launch_cmds[@]}"; do
