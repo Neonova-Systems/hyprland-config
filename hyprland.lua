@@ -25,7 +25,7 @@ require("group")
 
 -- Global Variables
 FileManager = "nautilus"
-Terminal = "foot"
+Terminal = "kitty"
 Menu = "hyprland-run"
 Launcher = "vicinae"
 
