@@ -4,3 +4,5 @@ reserved-space.conf
 ./monitors.conf
 __pycache__
 /.secret/
+
+Project_Vault_knowledge

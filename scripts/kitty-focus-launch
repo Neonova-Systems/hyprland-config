@@ -2,7 +2,8 @@
 set -euo pipefail
 
 # Focus a running kitty window, switching workspace if needed.
-# If none is running, launch kitty and run the project sessionizer in it.
+# If kitty is already focused, run the project sessionizer in a new tab.
+# If none is running, launch kitty and run the sessionizer in it.
 #
 # Override the sessionizer target with KITTY_SESSIONIZER=<path>.
 # Override the window class with KITTY_CLASS=<regex>.
@@ -19,6 +20,55 @@ fi
 
 kitty_class="${KITTY_CLASS:-^kitty$}"
 sessionizer="${KITTY_SESSIONIZER:-$HOME/.config/kitty/kitty-sessionizer}"
+
+# Command to open a sessionizer window/tab. Empty when the sessionizer is
+# missing, so kitty falls back to a plain shell.
+launch_cmd=()
+if [[ -x "$sessionizer" ]]; then
+    launch_cmd=("$sessionizer")
+fi
+
+open_window() {
+    if ((${#launch_cmd[@]})); then
+        exec kitty -e "${launch_cmd[@]}"
+    fi
+    exec kitty
+}
+
+# The picker needs a TTY, so the sessionizer always runs inside a kitty window.
+# Prefer a new tab in the focused kitty; that needs the instance to expose a
+# remote control socket (`listen_on` in kitty.conf).
+open_tab() {
+    local pid="$1" listen_on=""
+
+    # KITTY_LISTEN_ON is only exported to kitty's children, and Hyprland reports
+    # the kitty process pid, so fall back to the `unix:@kitty-<pid>` template
+    # used by `listen_on unix:@kitty-{kitty_pid}` in kitty.conf.
+    if [[ -r "/proc/$pid/environ" ]]; then
+        listen_on=$(tr '\0' '\n' < "/proc/$pid/environ" \
+            | sed -n 's/^KITTY_LISTEN_ON=//p' \
+            | head -n 1 || true)
+    fi
+    if [[ -z "$listen_on" && "$pid" != 0 ]]; then
+        listen_on="unix:@kitty-$pid"
+    fi
+
+    if [[ -n "$listen_on" ]] && command -v kitten >/dev/null 2>&1 \
+        && kitten @ --to "$listen_on" ls >/dev/null 2>&1; then
+        if ((${#launch_cmd[@]})); then
+            exec kitten @ --to "$listen_on" launch --type=tab "${launch_cmd[@]}"
+        fi
+        exec kitten @ --to "$listen_on" launch --type=tab
+    fi
+
+    open_window
+}
+
+# Already focused on kitty: cycle projects instead of a no-op focus.
+active=$(hyprctl activewindow -j)
+if jq -e --arg re "$kitty_class" '(.class // "") | test($re; "i")' <<<"$active" >/dev/null; then
+    open_tab "$(jq -r '.pid // 0' <<<"$active")"
+fi
 
 # Focus by address: works across workspaces and avoids regex parsing quirks.
 address=$(hyprctl clients -j \
@@ -37,9 +87,4 @@ if ! command -v kitty >/dev/null 2>&1; then
     exit 1
 fi
 
-# The sessionizer picker needs a TTY, so run it inside the new kitty window.
-if [[ -x "$sessionizer" ]]; then
-    exec kitty -e "$sessionizer"
-fi
-
-exec kitty
+open_window

@@ -12,7 +12,40 @@ local functions = require("functions")
 ---------------------
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local zsh = "zsh -ic "
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(FileManager))
+hl.bind(mainMod .. " + E", function() -- Toggle the file manager special workspace
+    local function is_file_manager(win)
+        if not win then return false end
+        local tags = win.tags
+        if type(tags) == "table" then
+            for _, tag in pairs(tags) do
+                if tag == "file-manager" then return true end
+            end
+        elseif type(tags) == "string" and tags:find("file-manager", 1, true) then
+            return true
+        end
+        return false
+    end
+
+    -- Focused client is the file manager: hide the special workspace.
+    local active = hl.get_active_window()
+    if is_file_manager(active) then
+        hl.dispatch(hl.dsp.workspace.toggle_special("special"))
+        return
+    end
+
+    -- A file manager already exists: bring its special workspace back.
+    for _, win in ipairs(hl.get_windows()) do
+        if is_file_manager(win) then
+            if not hl.get_active_special_workspace() then
+                hl.dispatch(hl.dsp.workspace.toggle_special("special"))
+            end
+            return
+        end
+    end
+
+    -- None open: spawn one; the file-manager rules route it to "special".
+    hl.exec_cmd(FileManager)
+end)
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(Menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(Launcher))
 hl.bind(mainMod .. " + CONTROL + return", hl.dsp.exec_cmd(Terminal))
