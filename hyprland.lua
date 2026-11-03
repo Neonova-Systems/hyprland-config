@@ -51,3 +51,9 @@ end
 
 require("rules_and_regulation")
 require("keybinds")
+
+-- >>> spatial-overview >>>
+-- Phantomat: added by its scripts/install.sh; scripts/uninstall.sh removes it.
+hl.plugin.load("/home/xaxeric/.local/share/spatial-overview/spatialoverview.so")
+dofile("/home/xaxeric/.config/hypr/spatialoverview.lua")
+-- <<< spatial-overview <<<
