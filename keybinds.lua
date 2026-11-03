@@ -13,17 +13,26 @@ local functions = require("functions")
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local zsh = "zsh -ic "
 hl.bind(mainMod .. " + E", function() -- Toggle the file manager special workspace
+    -- Mirrors the file-manager class regex in rules_and_regulation.lua,
+    -- escaped for Lua patterns (%. for dot, %- for hyphen).
+    local FM_CLASS = "^(thunar|nemo|pcmanfm.*|org%.gnome%.Nautilus|dolphin|yazi|ranger|doublecmd|krusader|file%-roller|ark|peazip)$"
+
     local function is_file_manager(win)
         if not win then return false end
+        -- Rule-assigned tags carry a trailing "*" marker (e.g. "file-manager*"),
+        -- so match by substring instead of equality.
         local tags = win.tags
         if type(tags) == "table" then
             for _, tag in pairs(tags) do
-                if tag == "file-manager" then return true end
+                if type(tag) == "string" and tag:find("file-manager", 1, true) then return true end
             end
         elseif type(tags) == "string" and tags:find("file-manager", 1, true) then
             return true
         end
-        return false
+        -- Fallback: class match, same set as the file-manager window rule.
+        local class = win.class or ""
+        local initial = win.initial_class or ""
+        return class:match(FM_CLASS) ~= nil or initial:match(FM_CLASS) ~= nil
     end
 
     -- Focused client is the file manager: hide the special workspace.
