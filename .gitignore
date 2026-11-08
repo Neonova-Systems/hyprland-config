@@ -5,5 +5,8 @@ reserved-space.conf
 __pycache__
 /.secret/
 
+# auto-gen by nwg-displays
+monitors.lua
+
 Vk
 Project_Vault_knowledge
