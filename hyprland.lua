@@ -11,17 +11,7 @@
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#variable-types
 -- https://wiki.hypr.land/Configuring/Start/#require
 require("on_event_and_autostart")
-require("env")
-require("general")
-require("decoration")
-require("animation")
-require("input_and_device_inputs")
-require("gestures")
-require("renderer")
-require("layouts")
-require("misc_and_debug")
-require("binds_and_cursor")
-require("group")
+require("config")
 
 -- Global Variables
 FileManager = "nautilus"
