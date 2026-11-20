@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# fm-at-kitty-cwd [file-manager]
+# Spawn the file manager at the focused kitty window's cwd (SUPER+E bind).
+#
+# Runs async from the keybind because querying kitty from inside the Hyprland
+# config callback would block the compositor. Connects straight to kitty's
+# per-instance control socket (kitty.conf: listen_on unix:@kitty-{kitty_pid}),
+# which hyprland reports as the window pid — no socket discovery, no hang.
+#
+# Nautilus is a GApplication single-instance: activating it with a path opens
+# the path in the running instance instead of a second window, so one spawn
+# command covers both "already open" and fresh start.
+set -u
+
+FM="${1:-nautilus}"
+
+active=$(hyprctl activewindow -j 2>/dev/null)
+[[ -n "$active" ]] || exec "$FM"
+
+class=$(jq -r '.class // empty' <<<"$active")
+pid=$(jq -r '.pid // empty' <<<"$active")
+title=$(jq -r '.title // empty' <<<"$active")
+
+cwd=""
+if [[ "$class" == kitty && -n "$pid" ]]; then
+    to="unix:@kitty-$pid"
+    # Primary: the focused tab's active window. Tab objects carry .tabs, so
+    # is_focused on them marks the focused tab; immune to title mismatch.
+    # Note: `.cwd // empty` must run before collecting — tab objects match
+    # title selectors too and carry cwd:null, which poisons `first`.
+    ls=$(timeout 2 kitty @ --to "$to" ls 2>/dev/null)
+    if [[ -n "$ls" ]]; then
+        cwd=$(jq -r '
+            [.[] | select(.is_focused == true)] as $w
+            | (if ($w | length) > 0 then $w else . end
+               | [.[] | .tabs[]? | select(.is_focused == true)][0])
+            | .windows[]? | select(.is_active == true) | .cwd // empty
+        ' <<<"$ls")
+        # Backup: exact title match (focused-tab flag can be stale).
+        if [[ -z "$cwd" && -n "$title" ]]; then
+            cwd=$(jq -r --arg t "$title" \
+                '[.. | objects | select(.title == $t) | .cwd // empty] | first // empty' \
+                <<<"$ls")
+        fi
+    fi
+fi
+
+if [[ -n "$cwd" && -d "$cwd" ]]; then
+    exec "$FM" "$cwd"
+else
+    exec "$FM"
+fi

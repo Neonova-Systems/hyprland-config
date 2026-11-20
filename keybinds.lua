@@ -42,18 +42,26 @@ hl.bind(mainMod .. " + E", function() -- Toggle the file manager special workspa
         return
     end
 
-    -- A file manager already exists: bring its special workspace back.
-    for _, win in ipairs(hl.get_windows()) do
-        if is_file_manager(win) then
-            if not hl.get_active_special_workspace() then
-                hl.dispatch(hl.dsp.workspace.toggle_special("special"))
+    -- When kitty is focused, open the file manager at kitty's cwd.
+    -- Nautilus is a GApplication single-instance: passing a path activates
+    -- the existing instance and opens it there (tab or current window)
+    -- rather than spawning a new window, so the "already open" branch is
+    -- handled for free. The cwd lookup runs in an async script (it queries
+    -- kitty's control socket, which would block the compositor inline).
+    if active and active.class == "kitty" then
+        hl.exec_cmd("~/.config/hypr/scripts/fm-at-kitty-cwd " .. FileManager)
+    else
+        -- A file manager already exists: bring its special workspace back.
+        for _, win in ipairs(hl.get_windows()) do
+            if is_file_manager(win) then
+                if not hl.get_active_special_workspace() then
+                    hl.dispatch(hl.dsp.workspace.toggle_special("special"))
+                end
+                break
             end
-            return
         end
+        hl.exec_cmd(FileManager)
     end
-
-    -- None open: spawn one; the file-manager rules route it to "special".
-    hl.exec_cmd(FileManager)
 end)
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(Menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(Launcher))
