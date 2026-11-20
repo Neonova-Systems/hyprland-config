@@ -10,6 +10,7 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")                                                                      -- Start awww-daemon for animated wallpapers
     hl.exec_cmd("vicinae server")                                                                   -- Start vicinae server for animated wallpapers
+    hl.exec_cmd("hypridle")                                                                         -- Start hypridle to dim the screen when idle
 
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP") -- https://wiki.hyprland.org/FAQ/#some-of-my-apps-take-a-really-long-time-to-open
     hl.exec_cmd("nm-applet --indicator")                                                            -- Start network-manager applet
