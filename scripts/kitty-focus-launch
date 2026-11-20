@@ -19,7 +19,7 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 kitty_class="${KITTY_CLASS:-^kitty$}"
-sessionizer="${KITTY_SESSIONIZER:-$HOME/.config/kitty/kitty-sessionizer}"
+sessionizer="${KITTY_SESSIONIZER:-$HOME/.config/kitty/scripts/kitty-sessionizer}"
 
 # Command to open a sessionizer window/tab. Empty when the sessionizer is
 # missing, so kitty falls back to a plain shell.
